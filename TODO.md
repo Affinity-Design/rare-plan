@@ -32,9 +32,10 @@
 | # | Task | Project | Assignee | Status |
 |---|------|---------|----------|--------|
 | 1 | Fix rare-fyi visual issues | rare-fyi | Felix | 🟡 In Progress |
-| 2 | Complete staking contract audit | contracts | GLM5 | ⏳ Pending |
+| 2 | ~~Complete staking contract audit~~ | contracts | Felix | ✅ Done |
 | 3 | Deploy rare-fyi to production | rare-fyi | Felix | ⏳ Blocked (visual fixes) |
-| 4 | Finalize Base Chain migration plan | contracts | PaulySun | ⏳ Pending |
+| 4 | Plan token migration (3.65M supply) | contracts | Felix | ✅ Done |
+| 5 | Set cutoff date for old claims | contracts | PaulySun | ⏳ Pending |
 
 ---
 
