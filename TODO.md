@@ -27,15 +27,28 @@
 
 ---
 
+## 📅 4-Week Development Sprint
+
+| Week | Focus | Status |
+|------|-------|--------|
+| **Week 1** | Core Contracts | ⏳ Pending |
+| **Week 2** | Frontend dApp | ⏳ Pending |
+| **Week 3** | Backend & Integration | ⏳ Pending |
+| **Week 4** | Polish & Prep | ⏳ Pending |
+| **After Week 4** | **ANNOUNCE** | ⏳ Decision Day |
+
+---
+
 ## 🔥 Critical Path (Must Do First)
 
 | # | Task | Project | Assignee | Status |
 |---|------|---------|----------|--------|
-| 1 | Fix rare-fyi visual issues | rare-fyi | Felix | 🟡 In Progress |
-| 2 | ~~Complete staking contract audit~~ | contracts | Felix | ✅ Done |
-| 3 | Deploy rare-fyi to production | rare-fyi | Felix | ⏳ Blocked (visual fixes) |
-| 4 | Plan token migration (3.65M supply) | contracts | Felix | ✅ Done |
-| 5 | Set cutoff date for old claims | contracts | PaulySun | ⏳ Pending |
+| 1 | Write RareTokenV2.sol | contracts | Felix | ⏳ Week 1 |
+| 2 | Write RareFountainV2.sol | contracts | Felix | ⏳ Week 1 |
+| 3 | Write RareStakingV2.sol | contracts | Felix | ⏳ Week 1 |
+| 4 | Write RareLottoV2.sol | contracts | Felix | ⏳ Week 1 |
+| 5 | Write AirdropClaim.sol | contracts | Felix | ⏳ Week 1 |
+| 6 | Deploy to Base testnet | contracts | Felix | ⏳ Week 1 |
 
 ---
 
