@@ -83,6 +83,10 @@ See: [marketing/marketing-todo.md](./marketing/marketing-todo.md)
 
 | Task | Project | Completed | By |
 |------|---------|-----------|-----|
+| Pink/purple/cyan redesign | rare-fyi | 2026-02-24 | Felix |
+| Blog post #1 (Why Failed) | marketing | 2026-02-24 | Felix |
+| Blog post #2 (Bot Problem) | marketing | 2026-02-24 | Felix |
+| Master TODO system | planning | 2026-02-24 | Felix |
 | Lottery contract audit | contracts | 2026-02-24 | Felix |
 | Marketing plan (90-day) | marketing | 2026-02-24 | Felix |
 | Supabase schema | infrastructure | 2026-02-24 | Felix |

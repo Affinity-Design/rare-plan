@@ -74,6 +74,8 @@
 | Pushed to GitHub | 2026-02-24 |
 | Deployed to Vercel | 2026-02-24 |
 | Color scheme updated (no gold) | 2026-02-24 |
+| Blog post #1 written | 2026-02-24 |
+| Blog post #2 written | 2026-02-24 |
 
 ---
 
