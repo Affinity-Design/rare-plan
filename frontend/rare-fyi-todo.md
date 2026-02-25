@@ -8,10 +8,10 @@
 
 | # | Task | Assignee | Status | Notes |
 |---|------|----------|--------|-------|
-| 1 | Fix visual issues on live site | Felix | 🟡 In Progress | Audit https://rare-fyi.vercel.app |
-| 2 | Apply pink/purple/cyan color scheme | Gemini 3.1 | 🟡 In Progress | Remove all gold |
+| 1 | Fix visual issues on live site | PaulySun | ✅ Done | Audit https://rare-fyi.vercel.app |
+| 2 | Apply pink/purple/cyan color scheme | ✅ Done | Remove all gold |
 | 3 | Add circle gradient logo | Felix | ✅ Done | Pink→Purple→Cyan |
-| 4 | Fix mobile responsiveness | Felix | ⏳ Pending | Test all breakpoints |
+| 4 | Fix mobile responsiveness & copy errors based on plan | Felix | ⏳ Pending | Test all breakpoints |
 | 5 | Connect rare.fyi domain | PaulySun | ⏳ Pending | DNS setup |
 
 ---
@@ -34,7 +34,7 @@
 
 | # | Task | Assignee | Status | Notes |
 |---|------|----------|--------|-------|
-| 1 | Add blog system | Felix | ⏳ Pending | MDX setup |
+| 1 | Add blog /fix system | Felix | ⏳ Pending | MDX setup |
 | 2 | Write first 5 blog posts | Felix | ⏳ Pending | SEO content |
 | 3 | Add About page | Felix | ⏳ Pending | Team, mission |
 | 4 | Add FAQ page | Felix | ⏳ Pending | Common questions |
@@ -52,8 +52,8 @@
 | 2 | "The Bot Problem" blog post | Felix | ⏳ Pending |
 | 3 | "Introducing Rare Coin on Base" | Felix | ⏳ Pending |
 | 4 | "Fair Distribution: Our Approach" | Felix | ⏳ Pending |
-| 5 | "Staking & Lottery: Real Utility" | Felix | ⏳ Pending |
-
+| 5 | "Staking & Lottery: Distrobution Explained" | Felix | ⏳ Pending |
+| 5 | "AI Trading Agents Marketplace - real value, maximize profits" | Felix | ⏳ Pending |
 ---
 
 ## 🚫 Blockers
