@@ -124,10 +124,10 @@ User Flow:
 
 | Parameter | Value |
 |-----------|-------|
-| **Total Supply** | 1,000,000 RARE |
+| **Total Supply** | 3,650,000 RARE |
 | **Chain** | Base Chain |
-| **Distribution** | 2 tokens/day (dual pool) |
-| **Distribution Period** | ~1,370 years (theoretical) |
+| **Distribution** | 200 tokens/day (dual pool) |
+| **Distribution Period** | end 2071 |
 | **Bot Protection** | Stake-to-Claim |
 
 ---
@@ -155,4 +155,4 @@ User Flow:
 
 ---
 
-*Last Updated: 2026-02-24*
+*Last Updated: 2026-02-25*
