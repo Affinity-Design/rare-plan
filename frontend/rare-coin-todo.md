@@ -9,6 +9,7 @@
 | # | Task | Assignee | Status | Notes |
 |---|------|----------|--------|-------|
 | 1 | Apply luxury glass theme | Felix | ✅ Done | Design system applied |
+---- PLAN API REWORK WITH NEW base endpoints, pick | blocked waiting for felix to return base chain research | we must have api endpoints redone before we can continue with front end deployment
 | 2 | Add Web3 wallet connection | Felix | ⏳ Pending | wagmi + viem |
 | 3 | Connect to Base Chain | Felix | ⏳ Pending | RPC configuration |
 | 4 | Integrate Supabase | Felix | ⏳ Pending | Backend data |
@@ -17,6 +18,7 @@
 ---
 
 ## 🟡 In Progress
+
 
 | # | Task | Assignee | Status | Notes |
 |---|------|----------|--------|-------|
