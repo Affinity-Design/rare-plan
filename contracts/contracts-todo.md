@@ -20,22 +20,23 @@
 
 | Contract | Audit | Fixes | Base Deploy | Status |
 |----------|-------|-------|-------------|--------|
-| rare-erc20.sol | ✅ Done | ⏳ Pending | ⏳ Pending | 🟡 Issues found |
+| rare-erc20.sol | ✅ Done | ✅ Done | ⏳ Pending | 🟢 Upgraded (V2) |
 | rare-fountain-v6.sol | ✅ Done | ⏳ Pending | ⏳ Pending | 🟡 Issues found |
 | lottery.sol | ✅ Done | ⏳ Pending | ⏳ Pending | 🔴 Critical issues |
 | staking.sol | ⏳ Pending | ⏳ Pending | ⏳ Pending | ⏳ Need source |
 
 ---
 
-## 🟡 In Progress
+## 🟢 Completed (V2 Upgrades)
 
-### Token Contract (rare-erc20.sol)
+### Token Contract (RareTokenV2.sol)
 | # | Issue | Severity | Status |
 |---|-------|----------|--------|
-| 1 | Reentrancy vulnerability | 🔴 Critical | ⏳ Pending |
-| 2 | Metadata manipulation | 🟡 Medium | ⏳ Pending |
-| 3 | Old Solidity (0.6.x) | 🟡 Medium | ⏳ Pending |
-| 4 | Missing events | 🟢 Low | ⏳ Pending |
+| 1 | Reentrancy vulnerability | 🔴 Critical | ✅ Fixed |
+| 2 | Metadata manipulation | 🟡 Medium | ✅ Fixed |
+| 3 | Old Solidity (0.6.x) | 🟡 Medium | ✅ Upgraded (0.8.20) |
+| 4 | Missing events | 🟢 Low | ✅ Added |
+| 5 | Airdrop/Migration Logic | 🆕 New | ✅ Implemented |
 
 ### Fountain Contract (rare-fountain-v6.sol)
 | # | Issue | Severity | Status |
