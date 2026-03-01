@@ -19,7 +19,7 @@ All fees are calculated in **USD** and converted to ETH using Chainlink price fe
 
 ## 🔥 Streak System (Claimers)
 
-**Claim every day to build your streak multiplier!**
+**Claim every day to unlock bonuses - NO RARE NEEDED!**
 
 | Streak | Days | Bonus | Reset? |
 |--------|------|-------|--------|
@@ -30,45 +30,57 @@ All fees are calculated in **USD** and converted to ETH using Chainlink price fe
 | **Tier 5** | 365 days | +100% | ❌ Miss = Reset |
 
 **Example:**
-- Claim 30 days in a row = +5% bonus on every claim
-- Miss day 31 = Streak resets to 1
-- Start over and build again!
+- Claim 60 days in a row = +15% bonus (no RARE required!)
+- Miss day 61 = Streak resets to 1
+- **Dedication path** - earn bonuses through consistency!
 
 ---
 
 ## 💎 RARE Holding Perks (Replaces NFTs)
 
-**Hold RARE to unlock permanent bonuses!**
+**Hold RARE to unlock bonuses - NO STREAK NEEDED!**
 
-| Tier | RARE Held | Bonus | Staking | Claiming |
-|------|-----------|-------|---------|----------|
-| **1** | 1 RARE | +1% | ✅ | ✅ |
-| **2** | 10 RARE | +5% | ✅ | ✅ |
-| **3** | 100 RARE | +15% | ✅ | ✅ |
-| **4** | 1,000 RARE | +35% | ✅ | ✅ |
-| **5** | 10,000 RARE | +100% | ✅ | ✅ |
+| Tier | RARE Held | Bonus |
+|------|-----------|-------|
+| **1** | 1 RARE | +1% |
+| **2** | 10 RARE | +5% |
+| **3** | 100 RARE | +15% |
+| **4** | 1,000 RARE | +35% |
+| **5** | 10,000 RARE | +100% |
 
 **Example:**
-- Hold 1,000 RARE = +35% bonus on staking rewards AND claim rewards
-- This replaces the old NFT system - no need to buy NFTs!
+- Hold 1,000 RARE = +35% bonus instantly (no streak required!)
+- **Investment path** - earn bonuses through holding!
 
 ---
 
-## 📊 Combined Bonus Example
+## ⚠️ IMPORTANT: Bonuses DON'T Stack!
 
-**Scenario:**
-- You've claimed **60 days in a row** (Tier 3 Streak = +15%)
-- You hold **1,000 RARE** (Tier 4 Holding = +35%)
-- Base claim = 10 RARE
+**You get the HIGHER of the two bonuses - not both!**
 
-**Calculation:**
-```
-Total Bonus = 15% + 35% = 50%
-Final Claim = 10 + (10 × 50%) = 15 RARE
-```
+### Two Paths to Bonuses:
 
-**Maximum Possible Bonus:**
-- Streak Tier 5 (+100%) + Holding Tier 5 (+100%) = **+200% bonus!**
+| Path | How | For Who |
+|------|-----|---------|
+| **Dedication** | Daily claims | Users with time, not money |
+| **Investment** | Hold RARE | Users with money, not time |
+
+### Example Scenarios:
+
+**Scenario A: Dedicated Claimer**
+- Streak: 60 days (+15%)
+- Holding: 10 RARE (+5%)
+- **Your Bonus: +15%** (streak wins)
+
+**Scenario B: RARE Whale**
+- Streak: 5 days (+0%)
+- Holding: 10,000 RARE (+100%)
+- **Your Bonus: +100%** (holding wins)
+
+**Scenario C: Both High**
+- Streak: 365 days (+100%)
+- Holding: 10,000 RARE (+100%)
+- **Your Bonus: +100%** (same either way!)
 
 ---
 
@@ -95,25 +107,6 @@ At every epoch flip (24h), unclaimed tokens from the pool are automatically sent
 
 ---
 
-## 🛠️ Technical Details
-
-### Chainlink Oracle
-- **Network:** Base Chain
-- **Feed:** ETH/USD
-- **Decimals:** 8 (Chainlink standard)
-- **Update:** Every time `getEthPrice()` is called
-
-### Fee Calculation
-```solidity
-function getClaimFeeInEth() public view returns (uint256) {
-    int256 ethPrice = getEthPrice(); // e.g., $2500.00
-    return (claimFeeUsd * 10**8) / uint256(ethPrice);
-    // $0.10 / $2500 = 0.00004 ETH
-}
-```
-
----
-
 ## 📋 Quick Reference
 
 | What | Amount/Threshold |
@@ -121,11 +114,11 @@ function getClaimFeeInEth() public view returns (uint256) {
 | **Claim Fee** | $0.10 USD in ETH |
 | **Staking Fee** | $0.10 USD in ETH |
 | **Streak Reset** | Missing 1 day |
-| **Max Streak Bonus** | +100% (365 days) |
-| **Max Holding Bonus** | +100% (10k RARE) |
-| **Max Total Bonus** | +200% |
+| **Max Bonus** | +100% ( EITHER 365-day streak OR 10k RARE hold ) |
+| **Do bonuses stack?** | ❌ NO - Take the higher one |
 
 ---
 
 *Last Updated: 2026-03-01*
 *Contract Version: V3 (Base Chain)*
+

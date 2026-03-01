@@ -125,8 +125,7 @@ contract RareStakingV3 is ReentrancyGuard, Ownable, Pausable {
 
     /**
      * @notice Get bonus percentage for a user based on their RARE holdings
-     * @param _user Address to check
-     * @return bonusBps Bonus in basis points
+     * @dev Holding perks replace the old NFT system - no streaks in staking
      */
     function getHoldingBonus(address _user) public view returns (uint256) {
         uint256 tier = getPerkTier(_user);

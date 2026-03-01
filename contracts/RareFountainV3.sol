@@ -177,7 +177,8 @@ contract RareFountainV3 is ReentrancyGuard, Ownable, Pausable {
     }
 
     /**
-     * @notice Get total bonus for a user (streak + holding)
+     * @notice Get total bonus for a user - MAX of streak OR holding (they don't stack!)
+     * @dev You either earn bonus through dedication (streak) OR investment (holding)
      */
     function getTotalBonus(address _user) public view returns (uint256) {
         uint256 streakBonus;
@@ -198,7 +199,9 @@ contract RareFountainV3 is ReentrancyGuard, Ownable, Pausable {
         else if (holdingTier == 2) holdingBonus = HOLD_BONUS_2;
         else if (holdingTier == 1) holdingBonus = HOLD_BONUS_1;
 
-        return streakBonus + holdingBonus;
+        // Return the HIGHER bonus - they don't stack!
+        // Choose your path: Dedication (streak) OR Investment (holding)
+        return streakBonus > holdingBonus ? streakBonus : holdingBonus;
     }
 
     /**
