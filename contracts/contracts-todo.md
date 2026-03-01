@@ -8,8 +8,7 @@
 
 | # | Task | Assignee | Status | Notes |
 |---|------|----------|--------|-------|
-| 1 | Audit staking contract | Felix | ⏳ Pending | Waiting for source code |
-| 2 | Deploy to Base testnet | PaulySun | ⏳ Pending | After final review |
+| 1 | Deploy to Base testnet | Felix | ⏳ Pending | After final review |
 
 ---
 
@@ -20,7 +19,7 @@
 | RareTokenV2.sol | ✅ Done | ✅ Done | ⏳ Pending | 🟢 Upgraded (0.8.20) |
 | RareFountainV2.sol | ✅ Done | ✅ Done | ⏳ Pending | 🟢 Upgraded (0.8.20) |
 | RareLotteryV2.sol | ✅ Done | ✅ Done | ⏳ Pending | 🟢 Upgraded (0.8.20) |
-| staking.sol | ⏳ Pending | ⏳ Pending | ⏳ Pending | ⏳ Need source |
+| RareStakingV2.sol | ✅ Done | ✅ Done | ⏳ Pending | 🟢 Upgraded (0.8.20) |
 
 ---
 
@@ -34,6 +33,9 @@
 
 ### Lottery Contract (RareLotteryV2.sol)
 - **Status:** Full rewrite from 0.4.17 to 0.8.20. Added Native/Token entry modes, entry limits per address, and placeholder for Base Chain randomness.
+
+### Staking Contract (RareStakingV2.sol)
+- **Status:** Full rewrite to 0.8.20. Upgraded from 0.6.x to incorporate `ReentrancyGuard`, fixed state-update vulnerabilities, and replaced the manager-fee centralization with a treasury address. Maintained the original term-based bonus structure (7/28/84 days).
 
 ---
 
@@ -53,8 +55,8 @@
 
 | Blocker | Resolution |
 |---------|------------|
-| Staking contract source missing | PaulySun to send file |
+| None | All contracts ready for testnet prep |
 
 ---
 
-*Last Updated: 2026-02-26*
+*Last Updated: 2026-03-01*
