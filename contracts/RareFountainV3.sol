@@ -66,6 +66,13 @@ contract RareFountainV3 is ReentrancyGuard, Ownable, Pausable {
     uint256 public constant STREAK_BONUS_4 = 3500;  // +35%
     uint256 public constant STREAK_BONUS_5 = 10000; // +100%
 
+    // Holding bonus values (in basis points) - same tiers
+    uint256 public constant HOLD_BONUS_1 = 100;    // +1%
+    uint256 public constant HOLD_BONUS_2 = 500;    // +5%
+    uint256 public constant HOLD_BONUS_3 = 1500;   // +15%
+    uint256 public constant HOLD_BONUS_4 = 3500;   // +35%
+    uint256 public constant HOLD_BONUS_5 = 10000;  // +100%
+
     // --- RARE Holding Perks (replaces NFT system) ---
     uint256 public constant HOLD_TIER_1 = 1 * 10**18;       // 1 RARE
     uint256 public constant HOLD_TIER_2 = 10 * 10**18;      // 10 RARE
@@ -185,11 +192,11 @@ contract RareFountainV3 is ReentrancyGuard, Ownable, Pausable {
         uint256 holdingBonus;
         uint256 holdingTier = getHoldingTier(_user);
         
-        if (holdingTier == 5) holdingBonus = STREAK_BONUS_5;
-        else if (holdingTier == 4) holdingBonus = STREAK_BONUS_4;
-        else if (holdingTier == 3) holdingBonus = STREAK_BONUS_3;
-        else if (holdingTier == 2) holdingBonus = STREAK_BONUS_2;
-        else if (holdingTier == 1) holdingBonus = STREAK_BONUS_1;
+        if (holdingTier == 5) holdingBonus = HOLD_BONUS_5;
+        else if (holdingTier == 4) holdingBonus = HOLD_BONUS_4;
+        else if (holdingTier == 3) holdingBonus = HOLD_BONUS_3;
+        else if (holdingTier == 2) holdingBonus = HOLD_BONUS_2;
+        else if (holdingTier == 1) holdingBonus = HOLD_BONUS_1;
 
         return streakBonus + holdingBonus;
     }
