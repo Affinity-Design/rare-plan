@@ -7,11 +7,11 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Pausable.sol";
 
 /**
- * @title Rare Staking V2
+ * @title Rare Staking V3
  * @notice Stake LP tokens to earn RARE dividends with time-weighted bonuses
- * @dev Upgraded from 0.6.x to 0.8.20. Integrated ReentrancyGuard and Base Chain compatibility.
+ * @dev Upgraded for Base Chain (V3).
  */
-contract RareStakingV2 is ReentrancyGuard, Ownable, Pausable {
+contract RareStakingV3 is ReentrancyGuard, Ownable, Pausable {
 
     // --- Types ---
 

@@ -1,4 +1,4 @@
-# Rare Token V2 (RARE)
+# Rare Token V3 (RARE)
 
 > Modern ERC20 Token for the Rare Coin Ecosystem on Base Chain.
 

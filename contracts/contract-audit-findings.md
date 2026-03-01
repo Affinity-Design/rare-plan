@@ -1,4 +1,4 @@
-# Contract Audit Findings - Rare Coin V2
+# Contract Audit Findings - Rare Coin V3
 
 ## rare-erc20.sol (Token Contract)
 

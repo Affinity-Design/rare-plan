@@ -182,5 +182,5 @@ contract FeeRegistry is Ownable {
 
 ---
 
-*Fee Structure v2.0*
+*Fee Structure v3.0*
 *Updated: 2026-02-24*

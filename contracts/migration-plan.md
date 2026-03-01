@@ -13,7 +13,7 @@ Migrating from old Rare Coin contracts (PulseChain) to new contracts (Base Chain
 | Version | Supply | Chain |
 |---------|--------|-------|
 | **Old (v1)** | 36,500 RARE | PulseChain/Gnosis |
-| **New (v2)** | 3,650,000 RARE | Base Chain |
+| **New (v3)** | 3,650,000 RARE | Base Chain |
 | **Ratio** | 1:100 | - |
 
 ### Why 3,650,000?
@@ -199,10 +199,10 @@ Rare Staking:   0x... (Solidity 0.5.x)
 
 ### New Contracts (Base Chain)
 ```
-RARE-ERC20-v2:     (Solidity 0.8.20)
-Rare Fountain-v2:  (Solidity 0.8.20)
-Rare Lotto-v2:     (Solidity 0.8.20)
-Rare Staking-v2:   (Solidity 0.8.20)
+RARE-ERC20-v3:     (Solidity 0.8.20)
+Rare Fountain-v3:  (Solidity 0.8.20)
+Rare Lotto-v3:     (Solidity 0.8.20)
+Rare Staking-v3:   (Solidity 0.8.20)
 Airdrop Contract:  (Solidity 0.8.20)
 ```
 

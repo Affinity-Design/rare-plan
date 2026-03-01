@@ -7,13 +7,11 @@ import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 /**
- * @title Rare Lottery V2
+ * @title Rare Lottery V3
  * @notice Modernized lottery for Base Chain with bot protection
- * @dev Upgraded from 0.4.17 to 0.8.20. 
- * @dev NOTE: For Base Chain, we should use Pyth Entropy or Chainlink VRF V2.5 for randomness.
- * @dev This version uses a commit-reveal or placeholder for VRF to be completed upon deployment.
+ * @dev Upgraded for Base Chain (V3).
  */
-contract RareLotteryV2 is Ownable, Pausable, ReentrancyGuard {
+contract RareLotteryV3 is Ownable, Pausable, ReentrancyGuard {
 
     // --- Configuration ---
 
@@ -71,7 +69,7 @@ contract RareLotteryV2 is Ownable, Pausable, ReentrancyGuard {
 
     /**
      * @notice Pick a winner using a secure randomness source
-     * @dev To be integrated with VRF V2.5 for Base Chain
+     * @dev To be integrated with VRF V3.5 for Base Chain
      */
     function pickWinner() external onlyOwner nonReentrant {
         require(lotteryActive, "Lottery not active");

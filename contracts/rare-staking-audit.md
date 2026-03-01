@@ -4,7 +4,7 @@
 
 Received 3 staking-related contracts:
 1. **Rarestake.sol** - Basic staking (v1)
-2. **StakePoolv2.sol** - Pool-based staking (v2)
+2. **StakePoolv3.sol** - Pool-based staking (v3)
 3. **Third file** - Additional staking logic
 
 ---

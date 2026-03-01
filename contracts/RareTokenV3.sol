@@ -5,11 +5,11 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 /**
- * @title Rare Token v2
+ * @title Rare Token v3
  * @notice Migrated Rare Coin token with 3,650,000 supply
- * @dev Upgraded from Solidity 0.6.x to 0.8.20
+ * @dev Upgraded from Gnosis (V3) to Base (V3)
  */
-contract RareTokenV2 is ERC20, Ownable {
+contract RareTokenV3 is ERC20, Ownable {
     
     // Constants
     uint256 public constant TOTAL_SUPPLY = 3_650_000 * 10**18; // 3,650,000 RARE

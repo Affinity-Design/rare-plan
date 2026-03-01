@@ -34,8 +34,8 @@
 
 | # | Task | Assignee | Status | Notes |
 |---|------|----------|--------|-------|
-| 1 | Add blog /fix system | Felix | ⏳ Pending | MDX setup |
-| 2 | Write first 5 blog posts | Felix | ⏳ Pending | SEO content |
+| 1 | Add blog /fix system | Felix | ✅ Done | Integrated MDX & Dynamic Routes |
+| 2 | Write first 5 blog posts | Felix | ⏳ In Progress | Post #1 & #3 drafted |
 | 3 | Add About page | Felix | ⏳ Pending | Team, mission |
 | 4 | Add FAQ page | Felix | ⏳ Pending | Common questions |
 | 5 | Add Roadmap page | Felix | ⏳ Pending | Timeline |

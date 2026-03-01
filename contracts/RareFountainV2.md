@@ -1,4 +1,4 @@
-# Rare Fountain V2
+# Rare Fountain V3
 
 > The Distribution Hub for Rare Coin with advanced Proof of Humanity and Bot Protection.
 

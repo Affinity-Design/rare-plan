@@ -1,4 +1,4 @@
-# Rare Staking V2
+# Rare Staking V3
 
 > Time-weighted LP Token Staking with RARE dividends and time-locked multipliers.
 

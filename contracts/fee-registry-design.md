@@ -225,7 +225,7 @@ contract FeeRegistry is Ownable {
 ```solidity
 import "./FeeRegistry.sol";
 
-contract RareFountainV2 {
+contract RareFountainV3 {
     FeeRegistry public feeRegistry;
     
     constructor(address _feeRegistry) {
@@ -244,7 +244,7 @@ contract RareFountainV2 {
 ### Staking Contract Integration
 
 ```solidity
-contract RareStakingV2 {
+contract RareStakingV3 {
     FeeRegistry public feeRegistry;
     
     function stake(uint256 _amount) external payable {
@@ -259,7 +259,7 @@ contract RareStakingV2 {
 ### Lottery Contract Integration
 
 ```solidity
-contract RareLottoV2 {
+contract RareLottoV3 {
     FeeRegistry public feeRegistry;
     
     function enter() external payable {

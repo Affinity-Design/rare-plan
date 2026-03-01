@@ -14,11 +14,11 @@ interface IBasenameRegistry {
 }
 
 /**
- * @title Rare Fountain V2
- * @notice Dual-pool distribution system with 3-Tier Proof of Humanity
- * @dev Upgraded from 0.6.x to 0.8.20.
+ * @title Rare Fountain V3
+ * @notice Autonomous Dual-pool distribution system with 3-Tier Proof of Humanity
+ * @dev Upgraded for Base Chain (V3). Autonomous design prevents "bricking" while ensuring fair timing.
  */
-contract RareFountainV2 is ReentrancyGuard, Ownable, Pausable {
+contract RareFountainV3 is ReentrancyGuard, Ownable, Pausable {
 
     // --- State Variables ---
 
@@ -38,6 +38,7 @@ contract RareFountainV2 is ReentrancyGuard, Ownable, Pausable {
     uint256 public regIncA; 
     uint256 public regIncB; 
     uint256 public cycleCount;
+    uint256 public lastFlipTimestamp;
 
     mapping(address => bool) public registeredA;
     mapping(address => bool) public registeredB;
@@ -62,6 +63,7 @@ contract RareFountainV2 is ReentrancyGuard, Ownable, Pausable {
         stakingContract = _stakingContract;
         lotteryContract = _lotteryContract;
         basenameRegistry = IBasenameRegistry(_basenameRegistry);
+        lastFlipTimestamp = block.timestamp;
     }
 
     // --- External Functions ---
@@ -140,10 +142,14 @@ contract RareFountainV2 is ReentrancyGuard, Ownable, Pausable {
 
     /**
      * @notice Flip the active pool and release incentives
+     * @dev Autonomous: Can be called by anyone every 24 hours.
      */
     function flipPool() external whenNotPaused nonReentrant {
+        require(block.timestamp >= lastFlipTimestamp + SECONDS_PER_DAY, "Flip: 24h not passed");
+        
         regPeriod = !regPeriod;
         cycleCount++;
+        lastFlipTimestamp = block.timestamp;
         
         if (regPeriod) {
             regIncA = 0;
