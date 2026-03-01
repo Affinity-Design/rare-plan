@@ -1,617 +1,411 @@
-# Rare.Claims Upgrade Plan - Modern Luxury Glass Theme
+# Rare Claims (rare.claims) - Master TODO
 
-## Overview
-
-**Goal:** Upgrade rare.claims dApp UI to match the luxury glass dark theme of rare.fyi marketing site.
-
-**Current State:**
-- rare.fyi: ✅ Luxury glass dark theme implemented
-- rare-coin (dApp): ✅ Next.js created, needs design applied
-- DevOps Agent: 🔄 Working on backend fixes
-- GLM5: ✅ Available for frontend work
-- Gemini 3.1: ✅ API key available
+> Unified plan for dApp frontend, API migration, and Supabase backend
 
 ---
 
-## Phase 1: Design System Migration (Priority: HIGH)
+## 🔥 Critical Path
 
-### 1.1 Apply Luxury Glass Theme to rare-coin
-
-**Files to Update:**
-
-#### A. Tailwind Configuration
-```typescript
-// rare-coin/tailwind.config.ts
-// Copy from rare-fyi-marketing/tailwind.config.ts
-
-colors: {
-  bg: {
-    primary: '#050505',
-    secondary: '#0A0A0A',
-    tertiary: '#111111',
-  },
-  glass: {
-    subtle: 'rgba(255, 255, 255, 0.03)',
-    light: 'rgba(255, 255, 255, 0.08)',
-    medium: 'rgba(255, 255, 255, 0.12)',
-  },
-  gold: {
-    primary: '#D4AF37',
-    light: '#E5C558',
-    dark: '#B8952E',
-  },
-  // ... all luxury colors from rare-fyi
-}
-```
-
-#### B. Global CSS
-```css
-// rare-coin/app/globals.css
-// Copy glass utilities from rare-fyi-marketing/app/globals.css
-
-.glass, .glass-card, .btn-glass, .input-glass, etc.
-```
-
-#### C. Root Layout
-```tsx
-// rare-coin/app/layout.tsx
-- Update metadata for rare.claims
-- Apply Inter font (same as rare.fyi)
-- Set dark theme as default (no light mode toggle)
-```
-
-### 1.2 Page Redesigns
-
-#### A. Home Page (Main dApp Interface)
-**Current Location:** `rare-coin/app/page.tsx`
-
-**New Features:**
-- Glass card hero with wallet connection
-- Floating claim/stake/lottery cards
-- Ambient gradient background
-- Animated floating elements
-- Glassmorphism throughout
-
-**Layout:**
-```
-┌─────────────────────────────────────────┐
-│  ┌──────────────────────────────┐  │
-│  │  [Connect Wallet] Button    │  │
-│  │  (Glass CTA with gold)    │  │
-│  └──────────────────────────────┘  │
-│                                     │
-│  ┌────────────┐  ┌──────────┐  │
-│  │   CLAIM    │  │  STAKE    │  │
-│  │   [Count]  │  │   [APY]  │  │
-│  └────────────┘  └──────────┘  │
-│                                     │
-│  ┌────────────┐  ┌──────────┐  │
-│  │  LOTTERY   │  │  SWAP     │  │
-│  │   [Enter]   │  │   [Trade]  │  │
-│  └────────────┘  └──────────┘  │
-│                                     │
-└─────────────────────────────────────────┘
-```
-
-#### B. Claim Page
-**Location:** Create `rare-coin/app/claim/page.tsx`
-
-**Features:**
-- Stake-to-Claim interface
-- Period selection (1 or 2)
-- Turnstile CAPTCHA widget
-- Claim history table (glass cards)
-- Next claim countdown
-
-#### C. Staking Page
-**Location:** Create `rare-coin/app/stake/page.tsx`
-
-**Features:**
-- Stake amount input
-- APY display (estimated rewards)
-- Unstaking interface
-- Staking history
-- Multi-stake pool visualization
-
-#### D. Lottery Page
-**Location:** Create `rare-coin/app/lottery/page.tsx`
-
-**Features:**
-- Ticket purchase interface
-- Current jackpot display
-- Entry history
-- Countdown to next draw
-- Previous winners (glass cards)
-
-#### E. Swap/Buy Page
-**Location:** Create `rare-coin/app/swap/page.tsx`
-
-**Features:**
-- Token swap interface (RARE ↔ ETH/USDC)
-- Buy with fiat (rare.fyi integration)
-- Price display with real-time updates
-- Transaction history
-
-#### F. Profile/Account Page
-**Location:** Create `rare-coin/app/profile/page.tsx`
-
-**Features:**
-- Claim history
-- Stake history
-- Lottery entries
-- Rewards earned
-- Settings/preferences
+| # | Task | Assignee | Status | Notes |
+|---|------|----------|--------|-------|
+| 1 | Deploy V3 contracts to Base testnet | Felix | ⏳ Pending | All 4 contracts ready |
+| 2 | Migrate API to Base endpoints | Felix | ⏳ Pending | **BLOCKER for frontend** |
+| 3 | FaunaDB → Supabase migration | Felix | ⏳ Pending | Data schema ready |
+| 4 | Web3 wallet connection | Felix | ⏳ Pending | wagmi + viem |
+| 5 | Deploy to rare.claims | PaulySun | ⏳ Pending | After all above |
 
 ---
 
-## Phase 2: Web3 Integration (Priority: CRITICAL)
+## 📋 Contract Integration (V3)
 
-### 2.1 Wallet Connection
+### Contract Addresses (Base Chain - TBD)
 
-**Library:** wagmi + viem (modern, lightweight)
+| Contract | Address | Status |
+|----------|---------|--------|
+| RareTokenV3 | TBD | ⏳ Testnet pending |
+| RareFountainV3 | TBD | ⏳ Testnet pending |
+| RareStakingV3 | TBD | ⏳ Testnet pending |
+| RareLotteryV3 | TBD | ⏳ Testnet pending |
 
-```bash
-# Install
-npm install wagmi viem @tanstack/react-query
+### V3 Features to Integrate
+
+#### Fountain (Claiming)
+- [ ] **3-Tier Whitelist UI** - Show eligibility status
+- [ ] **Streak Counter** - Display current streak + bonus tier
+- [ ] **Holding Perks** - Show RARE balance tier
+- [ ] **USD Fee Display** - Show $0.10 fee in ETH (via Chainlink)
+- [ ] **Dual-Pool Status** - Pool A/B indicator
+- [ ] **Claim Countdown** - 24h timer to next claim
+
+#### Staking
+- [ ] **Term Selection** - 7d/28d/84d with multipliers
+- [ ] **Holding Perks Display** - Show bonus tier
+- [ ] **USD Fee Display** - Show $0.10 fee in ETH
+- [ ] **Weekly Claim Timer** - 7-day countdown
+- [ ] **LP Calculator** - Estimate underlying RARE
+
+#### Lottery
+- [ ] **VRF Integration** - Display VRF status
+- [ ] **Entry Limits** - Max 5 entries indicator
+- [ ] **Prize Pool** - Live ETH + RARE total
+- [ ] **Player Count** - Minimum 3 players
+- [ ] **Draw Countdown** - Time to next draw
+
+---
+
+## 🔌 API Migration Plan
+
+### Current State (Gnosis/xDAI)
+
+| Endpoint | Purpose | Status |
+|----------|---------|--------|
+| `/api/claim` | Claim operations | ❌ Gnosis only |
+| `/api/stake` | Staking operations | ❌ Gnosis only |
+| `/api/lotto` | Lottery operations | ❌ Gnosis only |
+| `/api/user/:address` | User stats | ❌ Gnosis only |
+
+### New State (Base Chain)
+
+| Endpoint | Purpose | Changes |
+|----------|---------|---------|
+| `/api/v3/claim` | Claim operations | Base RPC, V3 ABI |
+| `/api/v3/stake` | Staking operations | Base RPC, V3 ABI |
+| `/api/v3/lottery` | Lottery operations | Base RPC, V3 ABI |
+| `/api/v3/user/:address` | User stats | Streak, holding tier |
+| `/api/v3/price` | ETH/USD from Chainlink | New endpoint |
+| `/api/v3/eligibility/:address` | 3-Tier check | New endpoint |
+
+### API Architecture
+
+```
+┌─────────────────────────────────────────────────┐
+│                  Frontend (Next.js)              │
+│  rare.claims - React + wagmi + viem            │
+└────────────────────┬────────────────────────────┘
+                     │
+        ┌────────────┴────────────┐
+        │                         │
+        ▼                         ▼
+┌───────────────┐         ┌───────────────┐
+│  Base RPC     │         │   Supabase    │
+│  (Read/Write) │         │   (Storage)   │
+└───────────────┘         └───────────────┘
+        │                         │
+        │                         │
+        ▼                         ▼
+┌───────────────┐         ┌───────────────┐
+│  V3 Contracts │         │  User Data    │
+│  Fountain     │         │  Streaks      │
+│  Staking      │         │  History      │
+│  Lottery      │         │  Analytics    │
+└───────────────┘         └───────────────┘
 ```
 
-**Implementation:**
-```tsx
-// app/components/WalletConnect.tsx
-'use client'
+### Implementation Files
 
-import { useAccount, useConnect, useDisconnect } from 'wagmi'
-import { Button } from '@/components/ui/button'
-
-export function WalletConnect() {
-  const { address, isConnected } = useAccount()
-  const { connect } = useConnect()
-  const { disconnect } = useDisconnect()
-
-  return (
-    <Button
-      onClick={isConnected ? disconnect : connect}
-      className="btn-glass"
-    >
-      {isConnected ? `${address?.slice(0,6)}...${address?.slice(-4)}` : 'Connect Wallet'}
-    </Button>
-  )
-}
-```
-
-### 2.2 Base Chain Configuration
-
-**RPC Endpoints:**
 ```typescript
-// app/config/chains.ts
+// lib/api/base-client.ts
+import { createPublicClient, createWalletClient, http } from 'viem'
 import { base } from 'wagmi/chains'
 
-export const baseChain = {
-  id: base.id,
-  name: 'Base',
-  nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
-  rpcUrls: {
-    public: { http: 'https://mainnet.base.org' },
-    default: { http: 'https://mainnet.base.org' },
-  },
-}
-```
+export const publicClient = createPublicClient({
+  chain: base,
+  transport: http('https://mainnet.base.org'),
+})
 
-### 2.3 Contract Interaction Layer
+export const walletClient = createWalletClient({
+  chain: base,
+  transport: http(),
+})
 
-**Abstraction:**
-```typescript
-// app/contracts/rareToken.ts
-import { parseAbi, encodeFunctionData } from 'viem'
-import rareTokenAbi from './abi/rareToken.json'
-
-export const rareTokenContract = {
-  address: '0x...', // Deploy address when ready
-  abi: rareTokenAbi,
+// Contract instances
+export const fountainContract = {
+  address: '0x...' as `0x${string}`,
+  abi: RareFountainV3ABI,
 }
 
-export async function claimTokens(wallet: Address) {
-  const { request } = await publicClient.simulateContract({
-    address: rareTokenContract.address,
-    abi: rareTokenContract.abi,
-    functionName: 'claim',
-    args: [wallet],
-  })
+export const stakingContract = {
+  address: '0x...' as `0x${string}`,
+  abi: RareStakingV3ABI,
+}
 
-  const hash = await walletClient.writeContract({
-    address: rareTokenContract.address,
-    abi: rareTokenContract.abi,
-    functionName: 'claim',
-    args: [wallet],
-  })
-
-  return hash
+export const lotteryContract = {
+  address: '0x...' as `0x${string}`,
+  abi: RareLotteryV3ABI,
 }
 ```
 
 ---
 
-## Phase 3: Backend Integration (Priority: HIGH)
+## 🗄️ FaunaDB → Supabase Migration
 
-### 3.1 Supabase Connection
+### Current FaunaDB Schema
 
-**Environment Variables:**
-```bash
-NEXT_PUBLIC_SUPABASE_URL=https://ugdflkwkbnyapgubpowc.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIs...
+```javascript
+// Users collection
+{
+  address: String,
+  claims: Number,
+  stakes: Array,
+  lotteryEntries: Number,
+  lastClaim: Timestamp,
+}
+
+// Claims collection
+{
+  user: Ref(Users),
+  amount: Number,
+  timestamp: Timestamp,
+  pool: String, // "A" or "B"
+}
 ```
 
-**Client Setup:**
+### New Supabase Schema
+
+```sql
+-- Users table
+CREATE TABLE users (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  wallet_address TEXT UNIQUE NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW(),
+  
+  -- V3 fields
+  claim_streak INTEGER DEFAULT 0,
+  last_claim_day INTEGER DEFAULT 0,
+  holding_tier INTEGER DEFAULT 0,
+  
+  -- Stats
+  total_claims INTEGER DEFAULT 0,
+  total_rare_claimed DECIMAL(38,18) DEFAULT 0,
+  total_stakes INTEGER DEFAULT 0,
+  total_lottery_entries INTEGER DEFAULT 0
+);
+
+-- Claims history
+CREATE TABLE claims (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(id),
+  amount DECIMAL(38,18) NOT NULL,
+  bonus_applied INTEGER DEFAULT 0, -- basis points
+  pool_cycle INTEGER NOT NULL,
+  tx_hash TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Stakes
+CREATE TABLE stakes (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(id),
+  amount DECIMAL(38,18) NOT NULL,
+  term INTEGER NOT NULL, -- 0=7d, 1=28d, 2=84d
+  multiplier INTEGER NOT NULL,
+  start_time TIMESTAMPTZ DEFAULT NOW(),
+  end_time TIMESTAMPTZ NOT NULL,
+  last_claim_time TIMESTAMPTZ,
+  active BOOLEAN DEFAULT TRUE,
+  tx_hash TEXT
+);
+
+-- Lottery entries
+CREATE TABLE lottery_entries (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(id),
+  lottery_round INTEGER NOT NULL,
+  entry_count INTEGER DEFAULT 1,
+  tx_hash TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Lottery rounds
+CREATE TABLE lottery_rounds (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  round_number INTEGER UNIQUE NOT NULL,
+  start_time TIMESTAMPTZ DEFAULT NOW(),
+  end_time TIMESTAMPTZ,
+  winner_address TEXT,
+  prize_eth DECIMAL(38,18),
+  prize_rare DECIMAL(38,18),
+  total_entries INTEGER DEFAULT 0,
+  status TEXT DEFAULT 'active' -- 'active', 'drawing', 'completed'
+);
+
+-- Streak history (for analytics)
+CREATE TABLE streak_events (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(id),
+  streak_before INTEGER,
+  streak_after INTEGER,
+  event_type TEXT, -- 'continue', 'reset', 'milestone'
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Indexes
+CREATE INDEX idx_users_wallet ON users(wallet_address);
+CREATE INDEX idx_claims_user ON claims(user_id);
+CREATE INDEX idx_claims_created ON claims(created_at DESC);
+CREATE INDEX idx_stakes_user ON stakes(user_id);
+CREATE INDEX idx_stakes_active ON stakes(active) WHERE active = TRUE;
+CREATE INDEX idx_lottery_round ON lottery_entries(lottery_round);
+```
+
+### Migration Script
+
 ```typescript
-// app/lib/supabase.ts
+// scripts/migrate-fauna-to-supabase.ts
+import { Client as FaunaClient, query } from 'faunadb'
+import { createClient } from '@supabase/supabase-js'
+
+const fauna = new FaunaClient({
+  secret: process.env.FAUNA_SECRET!
+})
+
+const supabase = createClient(
+  process.env.SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_KEY!
+)
+
+async function migrateUsers() {
+  // Fetch all users from FaunaDB
+  const { data: faunaUsers } = await fauna.query(
+    query.Map(
+      query.Paginate(query.Documents(query.Collection('users'))),
+      query.Lambda('ref', query.Get(query.Ref))
+    )
+  )
+
+  // Transform and insert into Supabase
+  for (const user of faunaUsers.data) {
+    const { data, error } = await supabase
+      .from('users')
+      .upsert({
+        wallet_address: user.data.address.toLowerCase(),
+        total_claims: user.data.claims || 0,
+        total_lottery_entries: user.data.lotteryEntries || 0,
+        created_at: user.data.lastClaim || new Date().toISOString()
+      })
+
+    if (error) {
+      console.error(`Failed to migrate user ${user.data.address}:`, error)
+    } else {
+      console.log(`Migrated user: ${user.data.address}`)
+    }
+  }
+
+  console.log(`Migration complete: ${faunaUsers.data.length} users`)
+}
+
+migrateUsers()
+```
+
+### Supabase Connection
+
+```typescript
+// lib/supabase/client.ts
 import { createClient } from '@supabase/supabase-js'
 
 export const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 )
 
-export type Database = typeof supabase
-```
-
-### 3.2 API Routes
-
-**Server Actions:**
-```
-app/
-├── api/
-│   ├── auth/
-│   │   └── session/route.ts      # Session management
-│   ├── claims/
-│   │   └── route.ts              # Claim history
-│   ├── stakes/
-│   │   └── route.ts              # Staking operations
-│   └── lottery/
-│       └── route.ts              # Lottery data
-```
-
-### 3.3 Cloudflare Turnstile Integration
-
-**Frontend:**
-```tsx
-// app/components/TurnstileWidget.tsx
-'use client'
-
-export function TurnstileWidget({ onVerified }: { onVerified: (token: string) => void }) {
-  const [token, setToken] = useState<string | null>(null)
-
-  useEffect(() => {
-    // Load Cloudflare Turnstile script
-    const script = document.createElement('script')
-    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js'
-    script.async = true
-    document.body.appendChild(script)
-
-    // Listen for verification
-    window.turnstileCallback = (response: string) => {
-      setToken(response)
-      onVerified(response)
-    }
-  }, [])
-
-  return (
-    <div className="turnstile-container">
-      <div className="cf-turnstile" data-sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY} />
-    </div>
-  )
-}
-```
-
-**Backend Verification:**
-```typescript
-// app/api/verify-captcha/route.ts
-export async function POST(request: Request) {
-  const { token } = await request.json()
-
-  // Verify with Cloudflare
-  const response = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      secret: process.env.TURNSTILE_SECRET_KEY,
-      response: token,
-    }),
-  })
-
-  const result = await response.json()
-
-  if (result.success) {
-    return Response.json({ valid: true })
-  }
-
-  return Response.json({ valid: false }, { status: 400 })
-}
+// Server-side admin client
+export const supabaseAdmin = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+)
 ```
 
 ---
 
-## Phase 4: Contract Fixes (GLM5 - DevOps Agent)
+## 🎨 Frontend Components
 
-### 4.1 Critical Security Fixes
+### Phase 1: Core UI (Week 1)
 
-**Contracts to Fix:**
-- `rare-coin-projects/rare-coin/rare-erc20.sol` → Deploy new version
-- `rare-coin-projects/rare-fountain/rare-fountain-v6.sol` → Add stake-to-claim
+| Component | Status | Notes |
+|-----------|--------|-------|
+| Wallet Connect | ⏳ Pending | wagmi + RainbowKit |
+| Glass Card | ✅ Done | Reusable container |
+| Stat Card | ⏳ Pending | For metrics display |
+| Countdown Timer | ⏳ Pending | For claims/lottery |
+| Streak Badge | ⏳ Pending | Visual tier indicator |
+| Holding Tier Badge | ⏳ Pending | RARE balance tier |
+| Fee Display | ⏳ Pending | USD → ETH via Chainlink |
 
-**Fixes Required:**
+### Phase 2: Page Implementations (Week 2)
 
-#### A. Reentrancy Guards
-```solidity
-// Import OpenZeppelin
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+| Page | Status | Features |
+|------|--------|----------|
+| `/claim` | ⏳ Pending | Streak, holding tier, whitelist status, fee |
+| `/stake` | ⏳ Pending | Term selection, APY, holding perks |
+| `/lottery` | ⏳ Pending | Prize pool, entry limit, VRF status |
+| `/profile` | ⏳ Pending | History, stats, streak tracking |
+| `/swap` | ⏳ Pending | DEX integration (optional) |
 
-contract RareFountain is ReentrancyGuard {
-    using ReentrancyGuard for uint256 private _guardCounter;
+### Phase 3: Web3 Integration (Week 3)
 
-    function claim() external nonReentrant {
-        // Claim logic here
-    }
-}
-```
-
-#### B. Stake-to-Claim Implementation
-```solidity
-uint256 public claimStakeRequirement = 100 * 10**18; // 100 RARE
-mapping(address => uint256) public stakedAmount;
-mapping(address => uint256) public lastRegistrationTime;
-
-function register() external payable {
-    require(
-        msg.value >= 0.001 ether ||
-        rareToken.balanceOf(msg.sender) >= claimStakeRequirement,
-        "Stake required"
-    );
-    
-    if (msg.value > 0) {
-        stakedAmount[msg.sender] = msg.value;
-    } else {
-        stakedAmount[msg.sender] = claimStakeRequirement;
-    }
-    
-    lastRegistrationTime[msg.sender] = block.timestamp;
-    _register(msg.sender);
-}
-
-function returnStake() external {
-    require(stakedAmount[msg.sender] > 0, "No stake to return");
-    
-    uint256 amount = stakedAmount[msg.sender];
-    stakedAmount[msg.sender] = 0;
-    
-    payable(msg.sender).transfer(amount);
-}
-```
-
-#### C. Rate Limiting
-```solidity
-uint256 public registrationCooldown = 1 days;
-
-function register() external payable {
-    require(
-        block.timestamp >= lastRegistrationTime[msg.sender] + registrationCooldown,
-        "Must wait 24h between registrations"
-    );
-    
-    // Registration logic
-}
-```
-
-### 4.2 Deployment Scripts
-
-**Base Chain Deployment:**
-```typescript
-// scripts/deploy.ts
-import { privateKeyToAccount } from 'viem/accounts'
-import { createPublicClient, createWalletClient } from 'viem/chains'
-
-async function main() {
-  const account = privateKeyToAccount('0x...') // Your deployer key
-  
-  const client = createPublicClient({
-    chain: base,
-    transport: http('https://mainnet.base.org'),
-  })
-  
-  const wallet = createWalletClient({
-    account,
-    chain: base,
-    transport: http(),
-  })
-  
-  // Deploy Rare Token
-  const rareTokenHash = await wallet.deployContract({
-    abi: rareTokenAbi,
-    bytecode: rareTokenBytecode,
-    args: ['0x...', // Fountain address
-  })
-  
-  console.log('Rare Token deployed:', rareTokenHash)
-  
-  // Deploy Rare Fountain (with fixes)
-  const fountainHash = await wallet.deployContract({
-    abi: fountainAbi,
-    bytecode: fountainBytecode,
-  })
-  
-  console.log('Fountain deployed:', fountainHash)
-}
-```
+| Feature | Status | Notes |
+|---------|--------|-------|
+| Base Chain config | ⏳ Pending | RPC endpoints |
+| Contract ABIs | ⏳ Pending | Import from V3 contracts |
+| Read functions | ⏳ Pending | viem publicClient |
+| Write functions | ⏳ Pending | viem walletClient |
+| Transaction tracking | ⏳ Pending | Toast notifications |
 
 ---
 
-## Phase 5: Frontend AI Integration (Gemini 3.1)
+## 🚀 Deployment Checklist
 
-### 5.1 Smart Content Suggestions
+### Pre-Deployment
 
-**Features:**
-- AI-powered blog post suggestions
-- SEO keyword recommendations
-- Content optimization hints
-- Image alt-text generation
+- [ ] V3 contracts deployed to Base mainnet
+- [ ] Contract addresses added to environment
+- [ ] Supabase tables created
+- [ ] FaunaDB data migrated
+- [ ] API endpoints tested
+- [ ] Chainlink price feeds verified
+- [ ] Cloudflare Turnstile configured
 
-**Implementation:**
-```typescript
-// app/lib/gemini.ts
-import { GoogleGenerativeAI } from '@google/generative-ai'
+### Deployment
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
+- [ ] Build frontend (`npm run build`)
+- [ ] Deploy to Vercel
+- [ ] Connect `rare.claims` domain
+- [ ] Enable Vercel Analytics
+- [ ] Test all flows on mainnet
 
-export async function generateBlogPost(topic: string) {
-  const response = await genAI.generateContent({
-    contents: [{
-      role: 'user',
-      parts: [{ text: `Write a SEO-optimized blog post about: ${topic}` }],
-    }],
-  })
+### Post-Deployment
 
-  return response.response.candidates[0].content.parts[0].text
-}
-
-export async function optimizeSEO(content: string) {
-  const response = await genAI.generateContent({
-    contents: [{
-      role: 'user',
-      parts: [{ text: `Suggest 5 SEO keywords for:\n\n${content}` }],
-    }],
-  })
-
-  return extractKeywords(response)
-}
-```
-
-### 5.2 Dynamic Content Generation
-
-**Features:**
-- FAQ generation from user queries
-- Tutorial creation guides
-- Announcement drafting
-- Twitter thread suggestions
+- [ ] Monitor error logs
+- [ ] Track user signups
+- [ ] Verify streak tracking
+- [ ] Check lottery draws
+- [ ] Monitor gas usage
 
 ---
 
-## Phase 6: Migration & Data Transfer
+## 📅 Timeline
 
-### 6.1 User Migration
-
-**From:** Old contract data (PulseChain)  
-**To:** New Supabase database
-
-**Strategy:**
-```sql
--- Insert existing users from old contract
-INSERT INTO users (wallet_address, registered_at)
-SELECT 
-  address,
-  timestamp
-FROM old_contract_claims
-WHERE timestamp > '2024-01-01';
-
--- Update claim counts
-UPDATE users u
-SET claim_count = (
-  SELECT COUNT(*)
-  FROM old_contract_claims c
-  WHERE c.address = u.wallet_address
-);
-```
-
-### 6.2 Airdrop to New Contracts
-
-**Process:**
-1. Snapshot current holders on old contract
-2. Calculate airdrop amounts
-3. Deploy new contracts on Base
-4. Execute airdrop to verified addresses
-5. Disable old contract claims
+| Week | Phase | Deliverables |
+|------|-------|--------------|
+| **1** | Contracts | Deploy V3 to Base testnet, verify ABIs |
+| **2** | API | Migrate endpoints to Base, Supabase setup |
+| **3** | Frontend | Core components, wallet connection |
+| **4** | Integration | Connect UI to contracts + API |
+| **5** | Testing | Full flow testing on testnet |
+| **6** | Deploy | Mainnet deployment + monitoring |
 
 ---
 
-## Timeline
+## 🔗 Related Files
 
-| Phase | Duration | Dependencies |
-|--------|-----------|--------------|
-| **Phase 1:** Design System | 1-2 days | None |
-| **Phase 2:** Web3 Integration | 2-3 days | wagmi, viem |
-| **Phase 3:** Backend Integration | 2-3 days | DevOps agent fixes |
-| **Phase 4:** Contract Fixes | 3-5 days | Audits, testing |
-| **Phase 5:** AI Integration | 2-3 days | Gemini API |
-| **Phase 6:** Migration | 5-7 days | Data extraction |
-| **TOTAL:** ~15-23 days | — |
+| File | Purpose |
+|------|---------|
+| `contracts/PERKS-SYSTEM.md` | Streak & holding bonus docs |
+| `contracts/migration-plan.md` | Gnosis → Base migration |
+| `contracts/MASTER-AUDIT-V3.md` | Security audit |
 
 ---
 
-## Component Library
-
-### Core Components (to build)
-
-1. **Glass Card** - Reusable glassmorphic container
-2. **Button** - Primary (gold), Secondary (glass), Ghost
-3. **Input** - Glass-styled form inputs
-4. **Modal** - Glass confirmation dialogs
-5. **Connect Wallet** - Web3 connection UI
-6. **Turnstile Widget** - CAPTCHA integration
-7. **Stat Card** - Display metrics in glass style
-8. **Transaction List** - History table
-9. **Countdown Timer** - For claim windows
-10. **Loading Spinner** - Glass-styled loader
-
----
-
-## Success Metrics
-
-### User Experience
-- [ ] Glassmorphism applied consistently
-- [ ] Dark theme exclusive (no light mode)
-- [ ] Smooth animations (60fps)
-- [ ] Mobile responsive design
-- [ ] Wallet connection < 5 seconds
-- [ ] Page load < 2 seconds
-
-### Functionality
-- [ ] All engines working (claim, stake, lottery, swap)
-- [ ] Web3 wallet connection stable
-- [ ] Contract interactions working
-- [ ] Supabase data sync working
-- [ ] CAPTCHA verification working
-- [ ] Rate limiting enforced
-
-### Security
-- [ ] No reentrancy vulnerabilities
-- [ ] Stake-to-Claim implemented
-- [ ] Rate limiting active (24h)
-- [ ] CAPTCHA verification required
-- [ ] Contract audited before deployment
-
----
-
-## Next Steps
-
-1. **Start Phase 1** — Apply design system to rare-coin
-2. **Wait for Phase 4** — GLM5 contract fixes
-3. **Coordinate migration** — Transfer data from old contract
-4. **Test on Base testnet** — Before mainnet deployment
-5. **Deploy to rare.claims** — Connect domain
-6. **Launch campaign** — With new luxury glass theme
-
----
-
-## Resource Allocation
-
-| Task | Owner | Model/Tool |
-|-------|--------|------------|
-| **Design System** | Felix (me) | Direct implementation |
-| **Web3 Integration** | Felix | wagmi, viem |
-| **Backend API** | DevOps Agent | GLM5 |
-| **Contract Fixes** | DevOps Agent | GLM5 (code analysis) |
-| **AI Features** | Felix | Gemini 3.1 |
-| **Database Migration** | DevOps Agent | Supabase |
-| **Deployment** | Both | Scripts + monitoring |
-
----
-
-*This plan ensures coordinated development between all systems while maintaining the luxury glass aesthetic throughout.*
+*Last Updated: 2026-03-01*
+*Status: Ready for implementation*
