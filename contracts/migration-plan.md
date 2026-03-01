@@ -1,98 +1,199 @@
-# Rare Coin Migration Plan
+# Rare Coin V3 Migration Plan
 
-## Overview
+## Gnosis Chain → Base Chain
 
-Migrating from old Rare Coin contracts (PulseChain) to new contracts (Base Chain) while preserving existing user balances.
+Migrating from Gnosis Chain (V2) to Base Chain (V3) while preserving all holder balances and NFT perks.
 
 ---
 
-## 📊 Tokenomics Update
+## 📊 Snapshot Sources
 
-### Supply Comparison
+### 1. RARE Token Holders
+- **Contract:** `0xCF740AC463098E442B31A5E88F4b359B30255616` (Gnosis)
+- **Data:** `balanceOf(address)` for all holders
 
-| Version | Supply | Chain |
-|---------|--------|-------|
-| **Old (v1)** | 36,500 RARE | PulseChain/Gnosis |
-| **New (v3)** | 3,650,000 RARE | Base Chain |
-| **Ratio** | 1:100 | - |
+### 2. LP Providers (RARE/xDAI)
+- **Contract:** `0x5805bb63e73Ec272c74e210D280C05B41D719827` (Honeyswap LP)
+- **Data:** `balanceOf(address)` + calculate underlying RARE
 
-### Why 3,650,000?
+### 3. Stakers
+- **Contract:** `0x79bfE41cDbF6b7E949B93B46a2cBEFB497d71c20` (Gnosis)
+- **Data:** `staker[address].totalLP` + calculate underlying RARE
 
-- 100x the original supply
-- Allows 1:100 conversion ratio for old holders
-- Still relatively rare (vs billions in other projects)
-- Maintains scarcity while accommodating growth
+### 4. NFT Holders ⭐ NEW
+- **Contract:** `0x23D2F04F00cfA734973B0f99fcB5F735Ab40A661` (Gnosis)
+- **Standard:** ERC-1155
+- **Data:** `balanceOf(address, tokenId)` for IDs 1-5
+
+---
+
+## 🎨 NFT → RARE Mapping
+
+**NFT holders get airdropped RARE to qualify for equivalent V3 holding tier!**
+
+| NFT ID | Old Effect | RARE Airdrop | V3 Tier | New Bonus |
+|--------|------------|--------------|---------|-----------|
+| **1** | 50% fee discount | **1 RARE** | Tier 1 | +1% |
+| **2** | +10% bonus | **10 RARE** | Tier 2 | +5% |
+| **3** | +25% bonus | **100 RARE** | Tier 3 | +15% |
+| **4** | +50% bonus | **1,000 RARE** | Tier 4 | +35% |
+| **5** | +100% bonus | **10,000 RARE** | Tier 5 | +100% |
+
+### Example
+
+```
+User holds:
+- 50 RARE tokens
+- NFT #4 (1 copy)
+
+Airdrop calculation:
+- Token balance: 50 RARE
+- NFT #4 bonus: 1,000 RARE
+- Total airdrop: 1,050 RARE
+
+V3 Status:
+- Holds 1,050 RARE → Tier 4 (+35% bonus)
+```
+
+---
+
+## 📐 Conversion Ratio
+
+| Source | Conversion |
+|--------|------------|
+| **RARE Tokens** | 1:1 (unchanged) |
+| **LP Tokens** | Calculate underlying RARE |
+| **Staked LP** | Calculate underlying RARE |
+| **NFTs** | See table above |
+
+**Note:** Unlike previous plan, we're NOT doing 100x inflation. Supply stays at 3,650,000.
 
 ---
 
 ## 🔄 Migration Strategy
 
-### Phase 1: Snapshot
+### Phase 1: Snapshot (All Sources)
 
-**When:** To be announced publicly (give accumulation time)
-**What:** Snapshot all RARE balances on old chain
-**How:**
-```solidity
-// Snapshot at specific block
-mapping(address => uint256) public oldBalances;
+```javascript
+// Snapshot script pseudocode
+const sources = {
+  rareToken: "0xCF740AC463098E442B31A5E88F4b359B30255616",
+  lpToken: "0x5805bb63e73Ec272c74e210D280C05B41D719827",
+  staking: "0x79bfE41cDbF6b7E949B93B46a2cBEFB497d71c20",
+  nftContract: "0x23D2F04F00cfA734973B0f99fcB5F735Ab40A661"
+};
 
-function snapshot() external onlyOwner {
-    // For each address in old contract
-    // Record balance at snapshot block
-}
+// For each address:
+// 1. Get RARE balance
+// 2. Get LP balance → calculate underlying RARE
+// 3. Get staked amount → calculate underlying RARE
+// 4. Get NFT balances (IDs 1-5) → map to RARE amounts
+// 5. Sum all sources → final airdrop amount
 ```
 
-### Phase 2: Airdrop Calculation
+### Phase 2: Merkle Tree Generation
 
-**Conversion Ratio:** 1 old RARE = 100 new RARE
+```javascript
+// Generate merkle tree
+const balances = {
+  "0xUser1": 1050,  // 50 RARE + NFT #4 (1000)
+  "0xUser2": 100,   // 100 RARE + NFT #3 (100)
+  "0xUser3": 10000, // NFT #5 only
+  // ...
+};
 
-| Old Balance | New Balance |
-|-------------|-------------|
-| 1 RARE | 100 RARE |
-| 10 RARE | 1,000 RARE |
-| 100 RARE | 10,000 RARE |
-| 365 RARE | 36,500 RARE |
-
-**Why 100x?**
-- Original supply: 36,500
-- New supply: 3,650,000
-- 3,650,000 / 36,500 = 100x ratio
-- Preserves percentage ownership
-
-### Phase 3: Airdrop Execution
-
-**Method 1: Merkle Drop (Recommended)**
-```solidity
-function claimAirdrop(
-    uint256 amount,
-    bytes32[] calldata proof
-) external {
-    require(verifyProof(proof, msg.sender, amount), "Invalid proof");
-    require(!claimed[msg.sender], "Already claimed");
-    
-    claimed[msg.sender] = true;
-    _mint(msg.sender, amount);
-}
+const tree = new MerkleTree(balances);
+const root = tree.getRoot();
 ```
 
-**Benefits:**
-- Gas efficient
-- Users claim when they want
-- No need to send to thousands of addresses
+### Phase 3: Claim on Base
 
-**Method 2: Direct Airdrop**
-- Send tokens directly to all holders
-- More expensive
-- Immediate distribution
+Users visit `rare.claims` and claim their combined airdrop.
 
-### Phase 4: Old Contract Wind-Down
+---
 
-**Options:**
-1. **Stop distributing** - Pause old contract
-2. **Continue distributing** - Let it run until empty
-3. **Burn remaining** - Reduce old supply
+## 📋 NFT Snapshot Details
 
-**Recommendation:** Continue old distribution until migration cutoff, then pause.
+### ERC-1155 Balance Query
+
+```javascript
+// For each NFT ID (1-5)
+for (let nftId = 1; nftId <= 5; nftId++) {
+  const balance = await nftContract.balanceOf(userAddress, nftId);
+  
+  // If user has this NFT, add corresponding RARE
+  if (balance > 0) {
+    const rareAmount = NFT_TO_RARE[nftId] * balance;
+    totalAirdrop += rareAmount;
+  }
+}
+
+const NFT_TO_RARE = {
+  1: 1,       // NFT #1 → 1 RARE
+  2: 10,      // NFT #2 → 10 RARE
+  3: 100,     // NFT #3 → 100 RARE
+  4: 1000,    // NFT #4 → 1000 RARE
+  5: 10000    // NFT #5 → 10000 RARE
+};
+```
+
+### Multiple NFTs
+
+**If user holds multiple NFTs of different tiers:**
+```
+User has: NFT #2 (2 copies) + NFT #4 (1 copy)
+
+Calculation:
+- NFT #2: 2 × 10 = 20 RARE
+- NFT #4: 1 × 1000 = 1000 RARE
+- Total NFT bonus: 1,020 RARE
+```
+
+**If user holds multiple NFTs of same tier:**
+```
+User has: NFT #3 (3 copies)
+
+Calculation:
+- NFT #3: 3 × 100 = 300 RARE
+- Total NFT bonus: 300 RARE
+```
+
+---
+
+## 🛡️ Why This Approach?
+
+### Preserves NFT Value
+- NFT holders aren't left behind
+- They automatically qualify for V3 holding perks
+- No need to buy new NFTs
+
+### Simple Migration
+- One claim = all balances combined
+- No separate NFT migration
+- Everything in RARE tokens
+
+### Fair Mapping
+| Old (NFT) | New (RARE Hold) |
+|-----------|-----------------|
+| Buy NFT #5 | Same as holding 10k RARE |
+| +100% bonus | +100% bonus |
+
+---
+
+## 📊 Supply Impact
+
+### Estimated NFT Airdrop
+
+| NFT | Est. Holders | RARE Each | Total RARE |
+|-----|--------------|-----------|------------|
+| #1 | 500 | 1 | 500 |
+| #2 | 300 | 10 | 3,000 |
+| #3 | 100 | 100 | 10,000 |
+| #4 | 50 | 1,000 | 50,000 |
+| #5 | 20 | 10,000 | 200,000 |
+| **Total** | ~970 | - | **~263,500** |
+
+**Impact on 3.65M supply:** ~7.2% reserved for NFT holders
 
 ---
 
@@ -100,179 +201,67 @@ function claimAirdrop(
 
 | Phase | Duration | Action |
 |-------|----------|--------|
-| **1** | 2 weeks | Public announcement |
-| **2** | 1 week | Accumulation window |
-| **3** | 1 day | Snapshot taken |
-| **4** | 1 week | Deploy new contracts |
-| **5** | 1 week | Airdrop claims open |
-| **6** | Ongoing | New distribution begins |
+| **1** | 2 weeks | Announce migration |
+| **2** | 1 week | Final accumulation |
+| **3** | 1 day | **Snapshot all sources** |
+| **4** | 1 week | Generate merkle tree |
+| **5** | 1 week | Deploy V3 on Base |
+| **6** | Ongoing | Claims open |
 
 ---
 
-## 📢 Public Announcement
+## ⚠️ Important Notes
 
-### What to Communicate
+### For NFT Holders
+- **NFTs remain on Gnosis** - they don't migrate
+- **You get RARE on Base** - equivalent to your NFT tier
+- **Keep your NFTs** - they may have collectible value
+- **V3 perks are token-based** - no new NFT system
 
-**The Message:**
-> "Rare Coin is migrating to Base Chain with 100x more tokens. All existing holders will receive an airdrop equal to 100x their current balance. Snapshot date: [DATE]. Claim your tokens at rare.claims after migration."
-
-**Key Points:**
-1. 1 old RARE = 100 new RARE
-2. Snapshot at specific block
-3. Claim on new chain (Base)
-4. Old contract continues until [DATE]
-5. After cutoff, no more old claims
-
-### Channels
-
-- Twitter (@RarifyApps)
-- Telegram (t.me/rarify_community)
-- Blog post on rare.fyi
-- Direct message to known holders
+### For All Users
+- **One claim per address**
+- **Must use same address** on Base
+- **No deadline** to claim (but streaks start when you do)
 
 ---
 
-## 🔍 Finding Old Holders
+## 🔧 Contract Addresses (Gnosis)
 
-### On-Chain Analysis
-
-**Data Needed:**
-1. All addresses that ever claimed RARE
-2. Current balance of each address
-3. Total claimed vs total remaining
-
-**How to Get:**
-```bash
-# Query old contract events
-# Get all Transfer events from old contract
-# Filter out zero addresses
-# Sum balances per address
-```
-
-**Tools:**
-- The Graph (if indexed)
-- Dune Analytics
-- Covalent API
-- Direct blockchain scan
-
-### Estimated Holders
-
-Based on 3 years of distribution:
-- Daily claims: ~3 years × 365 days = ~1,095 distributions
-- Assuming average 10-50 claimers per day
-- Estimated: 10,000 - 50,000 unique holders
-- Many may be bots (original problem)
+| Contract | Address |
+|----------|---------|
+| RARE Token | `0xCF740AC463098E442B31A5E88F4b359B30255616` |
+| RARE/xDAI LP | `0x5805bb63e73Ec272c74e210D280C05B41D719827` |
+| Staking | `0x79bfE41cDbF6b7E949B93B46a2cBEFB497d71c20` |
+| Fountain | `0xCDe24F566AEa0DeD222aa1B86B044948a1C5501c` |
+| **NFT Contract** | `0x23D2F04F00cfA734973B0f99fcB5F735Ab40A661` |
 
 ---
 
-## 💰 Supply Allocation
+## ✅ Migration Checklist
 
-### New Supply: 3,650,000 RARE
-
-| Allocation | Amount | Percentage |
-|------------|--------|------------|
-| **Airdrop** | ~3,650,000* | 100%* |
-| Team | 0 | 0% |
-| Treasury | 0 | 0% |
-| Liquidity | 0 | 0% |
-
-*Depends on how much has been distributed on old chain
-
-### If Old Chain Has Distributed 50%
-
-| Allocation | Amount | Percentage |
-|------------|--------|------------|
-| **Airdrop** | 1,825,000 | 50% |
-| **New Distribution** | 1,825,000 | 50% |
-
----
-
-## 🔧 Contract Migration
-
-### Old Contracts (PulseChain)
-```
-RARE-ERC20:     0x... (Solidity 0.6.x)
-Rare Fountain:  0x... (Solidity 0.6.x)
-Rare Lotto:     0x... (Solidity 0.6.x)
-Rare Staking:   0x... (Solidity 0.5.x)
-```
-
-### New Contracts (Base Chain)
-```
-RARE-ERC20-v3:     (Solidity 0.8.20)
-Rare Fountain-v3:  (Solidity 0.8.20)
-Rare Lotto-v3:     (Solidity 0.8.20)
-Rare Staking-v3:   (Solidity 0.8.20)
-Airdrop Contract:  (Solidity 0.8.20)
-```
-
----
-
-## 📋 Migration Checklist
-
-### Before Snapshot
-- [ ] Announce migration publicly
-- [ ] Set snapshot date
-- [ ] Set cutoff date for old claims
-- [ ] Deploy new contracts to Base testnet
-- [ ] Test airdrop claiming
-- [ ] Audit new contracts
+### Pre-Snapshot
+- [ ] Announce migration date
+- [ ] Document NFT → RARE mapping
+- [ ] Test snapshot script
+- [ ] Verify NFT contract ABI
 
 ### Snapshot Day
 - [ ] Record block number
-- [ ] Export all balances
-- [ ] Generate Merkle tree
-- [ ] Verify totals match
+- [ ] Snapshot RARE holders
+- [ ] Snapshot LP providers
+- [ ] Snapshot stakers
+- [ ] **Snapshot NFT holders (IDs 1-5)**
+- [ ] Calculate combined balances
+- [ ] Generate merkle tree
 
-### After Snapshot
-- [ ] Deploy contracts to Base mainnet
-- [ ] Upload Merkle root
+### Post-Snapshot
+- [ ] Deploy V3 contracts
+- [ ] Upload merkle root
 - [ ] Open claims
-- [ ] Monitor claims
-- [ ] Support users
-
-### Post-Migration
-- [ ] Pause old contract (optional)
-- [ ] Begin new distribution
-- [ ] Update website/docs
-- [ ] Community support
+- [ ] Support community
 
 ---
 
-## ⚠️ Risks & Mitigations
-
-| Risk | Mitigation |
-|------|------------|
-| Users miss snapshot | Long announcement window |
-| Bots claim airdrop | Accept - they had tokens |
-| High gas for claims | Merkle drop (claim when cheap) |
-| Users lose keys | Cannot recover - same as any crypto |
-| Old contract exploited | Pause if needed |
-
----
-
-## 📊 Success Metrics
-
-| Metric | Target |
-|--------|--------|
-| Claims within 30 days | 80% of holders |
-| Total value migrated | 90% of old supply |
-| Community sentiment | Positive |
-| New user growth | 10,000+ new wallets |
-
----
-
-## NEXT STEPS
-
-1. **Decide cutoff date** for old claims
-2. **Announce publicly** (2 weeks notice)
-3. **Build snapshot tool**
-4. **Deploy new contracts**
-5. **Generate Merkle tree**
-6. **Open claims**
-
----
-
-*Migration Plan v1.0*
-*Created: 2026-02-24*
-*Author: Felix*
+*Migration Plan v2.0*
+*Updated: 2026-03-01*
+*Author: Felix - Director of Rare Enterprises*

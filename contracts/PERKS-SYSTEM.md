@@ -52,6 +52,21 @@ All fees are calculated in **USD** and converted to ETH using Chainlink price fe
 - Hold 1,000 RARE = +35% bonus instantly (no streak required!)
 - **Investment path** - earn bonuses through holding!
 
+### 🎨 NFT Holder Migration
+
+**Own a Rare NFT on Gnosis? You'll be airdropped RARE to qualify!**
+
+| NFT | RARE Airdrop | V3 Tier |
+|-----|--------------|---------|
+| #1 | 1 RARE | Tier 1 (+1%) |
+| #2 | 10 RARE | Tier 2 (+5%) |
+| #3 | 100 RARE | Tier 3 (+15%) |
+| #4 | 1,000 RARE | Tier 4 (+35%) |
+| #5 | 10,000 RARE | Tier 5 (+100%) |
+
+**Your NFTs stay on Gnosis** (collectible value preserved)
+**You get RARE on Base** (for V3 holding perks)
+
 ---
 
 ## ⚠️ IMPORTANT: Bonuses DON'T Stack!
