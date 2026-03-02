@@ -15,7 +15,7 @@
 ## 💰 Fee Breakdown
 
 ### 1. Claim Registration
-- **Fee:** $0.05 USD in ETH
+- **Fee:** $0.15 USD in ETH
 - **Purpose:** Cover gas + anti-bot
 - **Goes to:** RarePool (distributed to beneficiaries)
 
