@@ -2,6 +2,8 @@
 
 > Complete reference for Rare Coin V3 API endpoints
 
+**Total Endpoints:** 13
+
 ---
 
 ## 📋 Base URL
@@ -267,6 +269,182 @@ Returns user's eligibility across all 3 tiers.
 | 405 | Method Not Allowed |
 | 500 | Internal Server Error |
 | 503 | Service Unavailable (contracts not configured) |
+
+---
+
+### Market Cap
+
+```
+GET /api/v3/market/cap
+```
+
+Returns market cap based on supply and ETH price.
+
+**Response:**
+```json
+{
+  "marketCap": {
+    "usd": 0,
+    "eth": 0,
+    "source": "pending"
+  },
+  "supply": {
+    "total": 3650000,
+    "max": 3650000
+  },
+  "ethPrice": {
+    "usd": 2492.50,
+    "source": "chainlink"
+  }
+}
+```
+
+---
+
+### Trading Volume
+
+```
+GET /api/v3/market/volume
+```
+
+Returns 24h trading volume from Aerodrome.
+
+**Response:**
+```json
+{
+  "volume": {
+    "eth24h": 0,
+    "usd24h": 0,
+    "rare24h": 0
+  },
+  "source": "pending"
+}
+```
+
+---
+
+### Token Price
+
+```
+GET /api/v3/price
+```
+
+Returns current RARE price from Aerodrome.
+
+**Response:**
+```json
+{
+  "price": {
+    "usd": 0,
+    "eth": 0,
+    "source": "pending"
+  },
+  "dex": {
+    "name": "Aerodrome",
+    "router": "0x...",
+    "factory": "0x..."
+  }
+}
+```
+
+---
+
+### Staking TVL
+
+```
+GET /api/v3/staking/tvl
+```
+
+Returns total value locked in staking.
+
+**Response:**
+```json
+{
+  "staking": {
+    "totalLPStaked": {
+      "raw": "1000000000000000000000",
+      "formatted": "1000.0",
+      "symbol": "LP"
+    },
+    "totalRewardsDistributed": {
+      "raw": "50000000000000000000000",
+      "formatted": "50000.0",
+      "symbol": "RARE"
+    }
+  }
+}
+```
+
+---
+
+### Lottery Status
+
+```
+GET /api/v3/lottery/status
+```
+
+Returns current lottery round status and prizes.
+
+**Response:**
+```json
+{
+  "lottery": {
+    "id": 42,
+    "active": true,
+    "status": "active"
+  },
+  "config": {
+    "minPlayers": 3,
+    "maxEntriesPerAddress": 5
+  },
+  "prize": {
+    "eth": {
+      "formatted": "0.5",
+      "symbol": "ETH"
+    },
+    "rare": {
+      "formatted": "1000.0",
+      "symbol": "RARE"
+    }
+  }
+}
+```
+
+---
+
+### Migration Snapshot
+
+```
+GET /api/v3/migration/snapshot/:address
+```
+
+Returns user's Gnosis (V2) balance for migration to Base (V3).
+
+**Response:**
+```json
+{
+  "address": "0x...",
+  "v2": {
+    "rareBalance": {
+      "formatted": "100.00",
+      "symbol": "RARE"
+    }
+  },
+  "v3": {
+    "rareAirdrop": {
+      "amount": "10000.00",
+      "multiplier": "100x"
+    },
+    "nftAirdrop": {
+      "total": "1000.00"
+    },
+    "totalClaim": {
+      "amount": "11000.00",
+      "symbol": "RARE"
+    }
+  }
+}
+```
 
 ---
 
