@@ -4,7 +4,7 @@
 
 | Action | Fee Type | Amount | Goes To |
 |--------|----------|--------|---------|
-| **Claim Registration** | ETH | $0.05 | RarePool |
+| **Claim Registration** | ETH | $0.15 | RarePool |
 | **Stake Entry** | ETH | $3-5 | RarePool |
 | **Stake Exit** | None | $0 | — |
 | **Lottery Ticket** | RARE tokens | Price set by manager | Lottery Pot |
