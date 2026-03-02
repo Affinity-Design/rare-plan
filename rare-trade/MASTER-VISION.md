@@ -74,40 +74,53 @@ If Clone Gets Cloned → Creator Earns 5% of Those Too!
      ↓
 VIRAL GROWTH 🚀
 
-Bot Creator Earns:
+Platform Fee:
+├── 1% of ALL winning trades → Rare Pool
+└── Taken before royalty distribution
+
+Bot Creator Earns (on clones):
 ├── 10% of profits from direct clones (Level 1)
 ├── 5% of profits from sub-clones (Level 2)
 ├── Paid in RARE tokens automatically
 └── ONLY if bot is PUBLIC (or Stealth)
 
+Bot User Keeps:
+├── Original bot: 99% of profits (1% platform fee)
+├── Cloned bot: 89% of profits (1% platform + 10% royalty)
+└── Sub-cloned bot: 84% of profits (1% + 10% + 5%)
+
 Cloner Pays:
 ├── 500 RARE clone fee (one-time) → Rare Pool
 ├── Subscription fee (50-250 RARE/mo) → Rare Pool
-└── Keeps 90% of profits (or 85% if sub-clone)
+└── Keeps 89% of profits (or 84% if sub-clone)
 
 Platform Earns:
+├── 1% of ALL winning trades → Rare Pool
 ├── All subscription fees → Rare Pool
 ├── All clone fees → Rare Pool
 ├── Privacy premiums → Rare Pool
 └── Premium model add-ons → Rare Pool
 ```
 
-### Example Earnings
+### Example Trade Distribution
 
 ```
-Bot "MoonShot" by Alice:
-├── Own profit: $2,500/mo
-│
-├── 25 people clone it:
-│   └── Each makes $1,800/mo avg
-│   └── Alice earns: 25 × 10% × $1,800 = $4,500/mo
-│
-├── 12 of those get cloned again:
-│   └── Each makes $900/mo avg
-│   └── Alice earns: 12 × 5% × $900 = $540/mo
-│
-└── ALICE'S TOTAL: $7,540/mo ($90K/year)
-   From ONE winning bot! 💰
+Winning Trade: $100 profit
+
+ORIGINAL BOT (not cloned):
+├── User keeps: $99 (99%)
+└── Platform fee: $1 (1%) → Rare Pool
+
+CLONED BOT (Level 1):
+├── User keeps: $89 (89%)
+├── Platform fee: $1 (1%) → Rare Pool
+└── Royalty: $10 (10%) → Original creator
+
+SUB-CLONED BOT (Level 2):
+├── User keeps: $84 (84%)
+├── Platform fee: $1 (1%) → Rare Pool
+├── Royalty L1: $10 (10%) → Direct parent
+└── Royalty L2: $5 (5%) → Original creator
 ```
 
 ### Why This Goes Viral

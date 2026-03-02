@@ -24,6 +24,12 @@ VIRAL GROWTH 🚀
 
 ## Royalty Structure
 
+### Platform Fee (All Trades)
+
+| Action | Fee | Flow |
+|--------|-----|------|
+| **Winning trade** | **1% of profit** | → Rare Pool |
+
 ### Clone Fees (One-Time)
 
 | Action | Fee | Who Gets It |
@@ -35,6 +41,7 @@ VIRAL GROWTH 🚀
 
 | Level | Relationship | Royalty | Example |
 |-------|--------------|---------|---------|
+| **Platform** | All winning trades | **1%** | $100 profit → $1 to Rare Pool |
 | **Level 1** | Direct clone | **10%** of profits | A clones B → B gets 10% of A's profits |
 | **Level 2** | Clone of clone | **5%** of profits | C clones A → B gets 5% of C's profits |
 | **Level 3+** | Further clones | 0% | No royalties beyond 2 levels |
@@ -44,20 +51,31 @@ VIRAL GROWTH 🚀
 ```
 🏆 Bot "Alpha" by User X
 ├── Makes $1,000 profit this month
+│   ├── User X keeps: $990 (99%)
+│   └── Platform fee: $10 (1%) → Rare Pool
 │
 ├── 📊 Leaderboard: #1 ranked
 │
 ├── 👥 10 users clone it:
 │   ├── Each pays 500 RARE clone fee → Rare Pool
 │   ├── Each makes avg $500 profit
+│   ├── Each pays: 1% platform ($5) + 10% royalty ($50)
 │   └── User X earns: 10 × 10% × $500 = $500
 │
 ├── 🔗 5 of those clones get cloned again:
 │   ├── 5 sub-clones make avg $300 profit
+│   ├── Each pays: 1% platform ($3) + 10% L1 ($30) + 5% L2 ($15)
 │   └── User X earns: 5 × 5% × $300 = $75
 │
 └── 💵 User X Total Monthly Royalty: $575
-    (on top of their own bot's $1,000 profit!)
+    (on top of their own bot's $990 profit!)
+    
+Rare Pool Earns:
+├── Platform fee (User X): $10
+├── Platform fee (10 clones): 10 × $5 = $50
+├── Platform fee (5 sub-clones): 5 × $3 = $15
+├── Clone fees: 15 × 500 RARE = 7,500 RARE
+└── Total: $75 + 7,500 RARE
 ```
 
 ---
@@ -85,15 +103,17 @@ Monthly Income Sources:
 ### For Rare Pool
 
 ```yaml
-Monthly Revenue From Cloning:
-  Clone Fees:
-    - 100 clones × 500 RARE = 50,000 RARE
+Monthly Revenue Sources:
+  1. Platform Fee (1% of ALL winning trades):
+     - 1,000 bots × $500 avg profit × 1% = $5,000
+     
+  2. Clone Fees:
+     - 100 clones × 500 RARE = 50,000 RARE
     
-  Platform Royalties (from profits):
-    - 5% of all cloned bot profits
-    - Est: 100 clones × $500 profit × 5% = $2,500
-    
-  Total to Rare Pool: 50,000 RARE + $2,500
+  3. Subscription Fees:
+     - All tiers (50-250 RARE/mo) → Rare Pool
+     
+  Total Monthly to Rare Pool: $5,000 + 50,000 RARE + subscriptions
 ```
 
 ---
@@ -328,11 +348,19 @@ Top Creators Earning:
 
 | Metric | Value |
 |--------|-------|
-| **Clone fee** | 500 RARE (one-time) |
-| **Level 1 royalty** | 10% of profits (forever) |
-| **Level 2 royalty** | 5% of profits (forever) |
-| **Platform share** | 5% of cloned bot profits |
+| **Platform fee** | 1% of all winning trades → Rare Pool |
+| **Clone fee** | 500 RARE (one-time) → Rare Pool |
+| **Level 1 royalty** | 10% of profits (forever) → Creator |
+| **Level 2 royalty** | 5% of profits (forever) → Creator |
 | **Top creator potential** | $50,000+/mo |
+
+### User Keeps (After Fees)
+
+| Bot Type | Platform | Royalties | User Keeps |
+|----------|----------|-----------|------------|
+| Original bot | 1% | 0% | **99%** |
+| Cloned bot (L1) | 1% | 10% | **89%** |
+| Sub-cloned bot (L2) | 1% | 15% | **84%** |
 
 ---
 

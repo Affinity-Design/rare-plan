@@ -104,6 +104,11 @@ clone_fee:
   amount: 500 RARE (one-time)
   flow: "→ Rare Pool"
   
+platform_fee:
+  rate: "1% of all winning trades"
+  flow: "→ Rare Pool"
+  note: "Platform cut on every profitable trade"
+  
 royalties:
   # Creator earns from clones
   level_1:
@@ -122,6 +127,24 @@ royalties:
     - Min 30 days active
     - Min $100 profit generated
     - Win rate > 40%
+```
+
+### Example Trade Flow
+
+```yaml
+# Winning Trade Example
+trade:
+  profit: $100
+  
+  distribution:
+    user_keeps: $89        # 89%
+    platform_fee: $1       # 1% → Rare Pool
+    royalty_level_1: $10   # 10% → Creator (if cloned)
+    royalty_level_2: $0    # 5% → Original creator (if sub-clone)
+    
+  # If NOT a cloned bot:
+  user_keeps: $99          # 99%
+  platform_fee: $1         # 1% → Rare Pool
 ```
 
 ### Per-Action Fees (ETH)
