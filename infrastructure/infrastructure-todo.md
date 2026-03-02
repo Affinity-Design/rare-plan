@@ -123,6 +123,8 @@
 | Streak badge component | 2026-03-02 |
 | Holding tier component | 2026-03-02 |
 | Error tracking utility | 2026-03-02 |
+| Frontend component audit | 2026-03-02 |
+| Frontend overhaul plan | 2026-03-02 |
 | FaunaDB migration | ❌ N/A | Data lost - fresh start |
 
 ---
