@@ -28,7 +28,7 @@
 | # | Task | Status | Notes |
 |---|------|--------|-------|
 | 1 | Create Web3Provider.tsx | ✅ Done | Wagmi config for Base |
-| 2 | Update WalletConnect.tsx | ⏳ Pending | Use wagmi hooks |
+| 2 | Update WalletConnect.tsx | ✅ Done | Use wagmi hooks |
 | 3 | Create WalletModal.tsx | ✅ Done | Premium connection UI |
 | 4 | Create NetworkSwitcher.tsx | ✅ Done | Base testnet/mainnet |
 
@@ -52,7 +52,7 @@
 | 2 | Button - Add glow effect | ✅ Done | Glow + pulse props |
 | 3 | Badge - Add shimmer animation | ✅ Done | Animated shimmer |
 | 4 | Card - Add hover animations | ✅ Done | Hover + interactive props |
-| 5 | Input - Improve focus ring | ⏳ Pending |
+| 5 | Input - Improve focus ring | ✅ Done | Ring + glow effect |
 
 ---
 
@@ -79,11 +79,11 @@
 ### Feature Components
 | # | Task | Status | Notes |
 |---|------|--------|-------|
-| 1 | Create StakeCard.tsx | ⏳ Pending | Staking interface |
-| 2 | Create LotteryCard.tsx | ⏳ Pending | Lottery interface |
+| 1 | Create StakeCard.tsx | ✅ Done | Staking with term selection |
+| 2 | Create LotteryCard.tsx | ✅ Done | Lottery with countdown |
 | 3 | Update ClaimCard.tsx | ⏳ Pending | V3 integration |
-| 4 | Create StatsCard.tsx | ⏳ Pending | Global stats |
-| 5 | Create HistoryList.tsx | ⏳ Pending | Transaction history |
+| 4 | Create StatsCard.tsx | ✅ Done | Stats + HeroStat + MiniStat |
+| 5 | Create HistoryList.tsx | ✅ Done | Search + filter |
 
 ---
 
@@ -145,6 +145,12 @@
 | 15+ CSS animations | 2026-03-02 |
 | Glass morphism utilities | 2026-03-02 |
 | Glow effect utilities | 2026-03-02 |
+| Input focus ring | 2026-03-02 |
+| WalletConnect wagmi | 2026-03-02 |
+| StakeCard component | 2026-03-02 |
+| LotteryCard component | 2026-03-02 |
+| StatsCard component | 2026-03-02 |
+| HistoryList component | 2026-03-02 |
 
 ---
 
