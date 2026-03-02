@@ -24,76 +24,99 @@
 
 ### Model Comparison (Cost per 1M tokens)
 
-| Model | Input | Output | Total* | Quality | Best For |
-|-------|-------|--------|--------|---------|----------|
-| **GLM-5** | $0.10 | $0.10 | **$0.20** | Good | ✅ Primary (default) |
-| **Gemini 2.0 Flash** | $0.10 | $0.40 | $0.50 | Good | Backup |
-| **GPT-4o-mini** | $0.15 | $0.60 | $0.75 | Good | Alternative |
-| **DeepSeek V3** | $0.27 | $1.10 | $1.37 | Good | Cost saver |
-| **Claude 3 Haiku** | $0.25 | $1.25 | $1.50 | Better | Premium tier |
-| **Claude 3.5 Sonnet** | $3.00 | $15.00 | **$18.00** | Best | ⚠️ Expensive! |
-| **Local Llama 3.1** | Free | Free | $0 | Decent | Enterprise |
+| Model | Input | Output | Total* | Speed | Quality | Best For |
+|-------|-------|--------|--------|-------|---------|----------|
+| **GLM-5** | $0.10 | $0.10 | **$0.20** | Fast | Good | ✅ Default (cheapest) |
+| **Gemini 2.0 Flash** | $0.10 | $0.40 | **$0.50** | Very Fast | Good | ✅ High-frequency bots |
+| **Claude 3.5 Haiku** | $0.80 | $4.00 | **$4.80** | Very Fast | Excellent | ✅ Premium tier |
 
-*Based on 60/40 input/output ratio
+*Based on 60/40 input/output ratio (1500 input + 500 output per decision)
 
-### Cost Difference
+### Cost Comparison
 
 ```
-GLM-5 vs Claude Sonnet:
-- GLM-5: $0.20 per 1M tokens
-- Claude Sonnet: $18.00 per 1M tokens
-- Difference: 90x more expensive!
+Cost per 1M tokens (blended):
+├── GLM-5: $0.20 (90x cheaper than Haiku!)
+├── Gemini Flash: $0.50 (10x cheaper than Haiku)
+└── Claude Haiku: $4.80 (premium quality)
 
-At 1,000 users (1.5B tokens/mo):
-- GLM-5: $300/mo
-- Claude Sonnet: $27,000/mo
-- Savings: $26,700/mo
+At 1,000 users (3B tokens/mo):
+├── GLM-5: $600/mo
+├── Gemini Flash: $1,500/mo
+└── Claude Haiku: $14,400/mo
 ```
 
 ### Recommended Strategy
 
 ```yaml
 # Default (Included in subscription)
-default_model: "GLM-5"
-  - All basic/pro bots use GLM-5
-  - Included in standard pricing
-  - Good enough for 90% of use cases
+default_models:
+  standard_trading: "GLM-5"
+    - Good quality
+    - Insanely cheap ($0.20/1M)
+    - Included in all tiers
+    
+  high_frequency: "Gemini 2.0 Flash"
+    - Very fast responses
+    - Cheap ($0.50/1M)
+    - For HFT/scalping bots
 
 # Premium Add-on (User pays extra)
 premium_models:
   claude_haiku:
-    add_on: +50 RARE/mo per bot
-    use_when: "Need better reasoning"
-    
-  claude_sonnet:
-    add_on: +200 RARE/mo per bot
-    use_when: "Critical decisions, complex analysis"
+    add_on: +100 RARE/mo per bot
+    use_when: "Need best reasoning quality"
+    features:
+      - Excellent pattern recognition
+      - Better complex analysis
+      - Superior decision making
+```
 
-# Model Selection
-model_tiers:
-  standard:
-    model: "GLM-5"
-    cost_to_user: "Included"
-    
-  better:
-    model: "Claude 3 Haiku"
-    cost_to_user: "+50 RARE/mo"
-    
-  best:
-    model: "Claude 3.5 Sonnet"
-    cost_to_user: "+200 RARE/mo"
+### Model Routing Logic
+
+```yaml
+# Automatic model selection based on use case
+routing_rules:
+  # Routine decisions (90% of calls)
+  routine_checks:
+    model: GLM-5
+    examples:
+      - "Should I check price again?"
+      - "Is RSI in normal range?"
+      - "Any pending orders?"
+      
+  # High-frequency trading
+  hft_scalping:
+    model: Gemini 2.0 Flash
+    examples:
+      - Scalping (< 5 min timeframe)
+      - Arbitrage opportunities
+      - Quick momentum shifts
+      
+  # Complex analysis (Premium only)
+  complex_decisions:
+    model: Claude 3.5 Haiku
+    requires: Premium add-on
+    examples:
+      - Multi-asset correlation
+      - Complex pattern recognition
+      - Major position changes
 ```
 
 ### On-Chain Models?
 
 | Option | Pros | Cons | Verdict |
 |--------|------|------|---------|
-| **GLM-5 (Zhipu AI)** | Cheap, fast, powerful | Centralized | ✅ Primary |
-| **Gemini Flash** | Cheap, fast | Google | ✅ Backup |
-| **On-Chain AI** | Decentralized | Expensive, slow | ❌ Not viable |
-| **Local Llama** | Free, private | Hardware costs | ⚠️ Enterprise only |
+| **GLM-5 (Zhipu AI)** | Cheapest, fast, good | Centralized | ✅ Primary |
+| **Gemini Flash** | Fast, cheap | Google | ✅ HF Trading |
+| **Claude Haiku** | Best quality | Expensive | ✅ Premium |
+| **On-Chain AI** | Decentralized | Too slow, expensive | ❌ Not viable |
+| **Local Llama** | Free | Hardware costs | ⚠️ Enterprise only |
 
-**Recommendation**: Use GLM-5 as default. Users who want premium models (Claude) pay extra. This keeps base costs low while offering premium options.
+**Recommendation**: 
+- Default: GLM-5 (cheapest, good enough for 90% of use cases)
+- HF Trading: Gemini Flash (speed + low cost)
+- Premium: Claude Haiku (users pay extra for best quality)
 
 ---
 
@@ -373,30 +396,33 @@ decisions_per_strategy:
 # Average: 20 decisions/day per bot
 avg_decisions_per_bot: 20
 
-# LLM Cost Per Bot Per Month (GLM-5)
-llm_cost_per_bot_glm5:
-  tokens: 20 × 30 × 2000 = 1.2M tokens
-  cost: 1.2M × $0.20/1M = $0.24/mo per bot
+# LLM Cost Per Bot Per Month (at 1,200 tokens/decision × 20/day × 30 days)
+tokens_per_bot_month: 1.2M
 
-# Compare to Claude Sonnet
-llm_cost_per_bot_sonnet:
-  cost: 1.2M × $18/1M = $21.60/mo per bot
+# Model Costs Per Bot Per Month
+llm_cost_per_bot_month:
+  glm_5: 1.2M × $0.20/1M = **$0.24**      # DEFAULT (insanely cheap!)
+  gemini_flash: 1.2M × $0.50/1M = **$0.60**  # HIGH-FREQ
+  claude_haiku: 1.2M × $4.80/1M = **$5.76**  # PREMIUM
+
+# Cost Comparison
+cost_comparison:
+  glm_5_vs_haiku: "24x cheaper"
+  glm_5_vs_gemini: "2.5x cheaper"
   
-# Savings: 90x cheaper with GLM-5!
-
-# At Scale (1,000 bots)
-glm5_total: $240/mo
-claude_haiku_total: $1,800/mo
-claude_sonnet_total: $21,600/mo
-
-# Premium Model Add-on Revenue
-premium_addons:
-  # 10% of users upgrade to Claude Haiku
-  haiku_users: 100
-  addon_fee: 50 RARE/mo
-  revenue: 5,000 RARE/mo ($5,000)
+# At Scale (1,000 bots) - Monthly LLM Cost
+model_mix_at_scale:
+  # 85% use GLM-5 (default)
+  glm_5: 850 bots × $0.24 = $204
   
-  # 5% of users upgrade to Claude Sonnet
+  # 10% use Gemini Flash (HFT)
+  gemini: 100 bots × $0.60 = $60
+  
+  # 5% use Claude Haiku (premium, user pays)
+  haiku: 50 bots × $5.76 = $288 (user pays +100 RARE/mo)
+  
+platform_llm_cost: $264/mo  # Only pay for GLM-5 + Gemini
+premium_revenue: 50 × 100 RARE = 5,000 RARE/mo ($5,000)
   sonnet_users: 50
   addon_fee: 200 RARE/mo
   revenue: 10,000 RARE/mo ($10,000)
@@ -611,31 +637,59 @@ payback_months: 0.4 months
 
 ## Recommendations
 
-### LLM Strategy
+### LLM Strategy (Three-Tier Model)
 
-1. **Primary**: GLM-5 (cheapest - $0.20/1M tokens)
-2. **Backup**: Gemini 2.0 Flash
-3. **Premium**: Claude (users pay extra +50-200 RARE/mo)
-4. **Skip**: On-chain AI (too expensive, slow)
+**1. GLM-5 (Default - 85% of use)**
+- Cost: $0.20/1M tokens (90x cheaper than Haiku!)
+- Use: All standard trading bots
+- Included: In all subscription tiers
+- Quality: Good enough for 90% of decisions
 
-### Premium Model Strategy
+**2. Gemini 2.0 Flash (High-Frequency - 10% of use)**
+- Cost: $0.50/1M tokens
+- Use: HFT, scalping, arbitrage bots
+- Auto-switch: When bot makes >50 trades/day
+- Quality: Fast + good
+
+**3. Claude 3.5 Haiku (Premium - 5% of use)**
+- Cost: $4.80/1M tokens
+- Use: Complex analysis, major decisions
+- Add-on: +100 RARE/mo per bot
+- Quality: Excellent reasoning
+
+### Model Selection Logic
 
 ```
-Default (Included):
-├── GLM-5 for all decisions
-└── No extra cost
-
-Premium Add-ons:
-├── Better Reasoning (+50 RARE/mo)
-│   └── Claude Haiku for complex decisions
-└── Best Quality (+200 RARE/mo)
-    └── Claude Sonnet for all decisions
-
-User Choice:
-├── 90% will use default (GLM-5)
-├── 8% will pay for Haiku (+$50-100)
-└── 2% will pay for Sonnet (+$200-500)
+Bot requests decision → Check bot type:
+│
+├── Standard Bot (< 20 trades/day)
+│   └── Use GLM-5 ($0.24/mo)
+│
+├── High-Frequency Bot (> 50 trades/day)
+│   └── Use Gemini Flash ($0.60/mo)
+│
+└── Premium Bot (user pays +100 RARE)
+    └── Use Claude Haiku ($5.76/mo)
 ```
+
+### Why This Works
+
+```
+Cost at 1,000 users:
+├── 850 GLM-5 bots: $204/mo
+├── 100 Gemini bots: $60/mo
+├── 50 Haiku bots: $288/mo (user pays!)
+└── Platform pays: $264/mo total
+
+vs All-Haiku: $14,400/mo
+Savings: $14,136/mo (98% cheaper!)
+```
+
+### Infrastructure
+
+1. **Start**: Fly.io + Supabase Free + Alchemy Free
+2. **Scale**: Upgrade as needed (auto-scale)
+3. **Optimize**: Caching, batching, smart routing
 
 ---
 
