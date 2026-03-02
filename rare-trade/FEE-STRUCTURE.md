@@ -2,6 +2,7 @@
 
 > Flexible, configurable fees that scale with RARE price
 > Mix of RARE + ETH for sustainability
+> ALL revenue → Rare Pool (centralized distribution)
 
 ---
 
@@ -11,60 +12,138 @@
 - **Daily Distribution**: 200 RARE/day via claims
 - **Circulating Supply**: ~560,000 RARE
 - **Price Scenarios**:
-  - At $0.10: 500 RARE = $50/mo ✅
-  - At $0.50: 500 RARE = $250/mo ⚠️
-  - At $1.00: 500 RARE = $500/mo ❌ Too steep
-  - At $5.00: 500 RARE = $2,500/mo ❌ Impossible
+  - At $0.10: 50 RARE = $5/mo ✅
+  - At $0.50: 50 RARE = $25/mo ✅
+  - At $1.00: 50 RARE = $50/mo ✅
+  - At $5.00: 50 RARE = $250/mo ⚠️
 
 ### Design Goals
-1. **Affordable**: Target ~$20-50/month for basic users
+1. **Affordable**: Target ~$20-100/month for most users
 2. **Sustainable**: Generate real revenue in ETH/stablecoins
 3. **Configurable**: Adjustable via governance/contract
 4. **Hybrid**: Mix RARE (utility) + ETH (revenue)
+5. **Viral**: Profit sharing drives growth
 
 ---
 
-## Proposed Fee Structure
+## Final Fee Structure
 
-### Option A: Hybrid RARE + ETH (Recommended)
+### Subscription Tiers (Hybrid RARE + ETH)
 
 ```yaml
-# Bot Subscription (Monthly)
 bot_tiers:
   paper:
     rare: 0
     eth: 0
-    features: "Simulation only"
+    features: "Simulation only, no real trades"
     
   basic:
     rare: 50          # $5-50 depending on price
     eth: 0.005        # ~$15 at 3k ETH
     total_usd: "~$20-65/mo"
-    features: "1 bot, public, basic strategies"
+    features: "1 bot, public, earn royalties"
     
   pro:
     rare: 100         # $10-100 depending on price
     eth: 0.01         # ~$30 at 3k ETH
     total_usd: "~$40-130/mo"
-    features: "3 bots, private option, all strategies"
+    features: "3 bots, privacy option, priority support"
     
   whale:
     rare: 250         # $25-250 depending on price
     eth: 0.025        # ~$75 at 3k ETH
     total_usd: "~$100-325/mo"
     features: "Unlimited bots, API access, priority"
+```
 
-# Per-Action Fees (Small, in ETH)
+### Privacy Options (Per Bot)
+
+```yaml
+privacy_modes:
+  public:
+    add_on: 0
+    royalties: "✅ Earn 10% + 5%"
+    visibility: "Full leaderboard visibility"
+    
+  private:
+    add_on: "+100 RARE/mo"
+    royalties: "❌ No royalties"
+    visibility: "Hidden from leaderboard"
+    
+  stealth:
+    add_on: "+200 RARE/mo"
+    royalties: "✅ Earn 10% + 5%"
+    visibility: "Anonymous on leaderboard"
+```
+
+### LLM Model Tiers
+
+```yaml
+llm_models:
+  glm_5:
+    cost: "$0.20/1M tokens"
+    included: "✅ Yes (default)"
+    use_case: "Standard trading (85% of bots)"
+    
+  gemini_3_flash:
+    cost: "$0.50/1M tokens"
+    included: "✅ Yes (auto for HFT)"
+    use_case: "High-frequency trading (10% of bots)"
+    
+  claude_4_5_haiku:
+    cost: "$4.80/1M tokens"
+    included: "❌ Premium add-on"
+    add_on: "+100 RARE/mo per bot"
+    use_case: "Premium quality (5% of bots)"
+```
+
+### Clone & Profit Sharing
+
+```yaml
+clone_fee:
+  amount: 500 RARE (one-time)
+  flow: "→ Rare Pool"
+  
+royalties:
+  # Creator earns from clones
+  level_1:
+    rate: "10% of clone's profits"
+    duration: "Forever"
+    paid_in: "RARE"
+    
+  level_2:
+    rate: "5% of sub-clone's profits"
+    duration: "Forever"
+    paid_in: "RARE"
+    
+  # Requirements
+  requirements:
+    - Bot must be public (or stealth)
+    - Min 30 days active
+    - Min $100 profit generated
+    - Win rate > 40%
+```
+
+### Per-Action Fees (ETH)
+
+```yaml
 action_fees:
   trade_execution: 0.0001 ETH    # ~$0.30 per trade
-  copy_strategy: 0.002 ETH       # ~$6 one-time
   skill_purchase: 0.001 ETH      # ~$3 per skill
+  withdrawal: 0.0005 ETH         # ~$1.50 (security fee)
+```
+
+### Skill Marketplace
+
+```yaml
+skill_fees:
+  platform_fee: 10% of sale price
+  flow: "→ Rare Pool"
   
-# Royalty Split (On Profits)
-royalties:
-  creator_share: 10%             # In RARE
-  platform_share: 5%             # In ETH equivalent
-  sub_copier: 5%                 # In RARE
+  skill_types:
+    indicator: "100-500 RARE (one-time)"
+    strategy: "50-200 RARE/month"
+    risk_tool: "75-150 RARE/month"
 ```
 
 ### Option B: Dynamic RARE Pricing

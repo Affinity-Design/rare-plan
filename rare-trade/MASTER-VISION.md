@@ -21,62 +21,140 @@
 
 ## Business Model
 
+### Subscription Tiers (Hybrid RARE + ETH)
+
+| Tier | RARE/mo | ETH/mo | USD Est.* | Features |
+|------|---------|--------|-----------|----------|
+| **Paper** | 0 | 0 | Free | Simulation only, no real trades |
+| **Basic** | 50 | 0.005 | ~$20-65 | 1 bot, public, earn royalties |
+| **Pro** | 100 | 0.01 | ~$40-130 | 3 bots, privacy option |
+| **Whale** | 250 | 0.025 | ~$100-325 | Unlimited bots, API access |
+
+*At RARE $0.50-2.00, ETH $3,000
+
+### Privacy Options
+
+| Visibility | Add-on Cost | Royalties | Notes |
+|------------|-------------|-----------|-------|
+| **Public** | Included | ✅ Earn 10% + 5% | Visible on leaderboard |
+| **Private** | +100 RARE/mo | ❌ No royalties | Only visible to creator |
+| **Stealth** | +200 RARE/mo | ✅ Earn 10% + 5% | Anonymous on leaderboard |
+
+### LLM Model Tiers
+
+| Model | Cost/1M | Included? | Add-on |
+|-------|---------|-----------|--------|
+| **GLM-5** | $0.20 | ✅ Default | — |
+| **Gemini 3 Flash** | $0.50 | ✅ HFT bots | — |
+| **Claude 4.5 Haiku** | $4.80 | ❌ Premium | +100 RARE/mo |
+
 ### Revenue Streams
 
-| Stream | Price | Notes |
-|--------|-------|-------|
-| **Public Bot** | 500 RARE/mo | Visible to all, earns royalties |
-| **Private Bot** | 2,000 RARE/mo | Only visible to creator |
-| **Copy Bot** | 500 RARE + royalties | Duplicate successful bots |
-| **Strategy Copy** | 500 RARE/clone | One-time copy fee |
-| **API Access** | 5,000 RARE/mo | Direct API for power users |
-| **Skill Marketplace** | 10% fee | Custom strategies/indicators |
+| Stream | Price | Flow |
+|--------|-------|------|
+| **Subscriptions** | 50-250 RARE + ETH | → Rare Pool |
+| **Clone Fee** | 500 RARE (one-time) | → Rare Pool |
+| **Privacy Premium** | +100-200 RARE/mo | → Rare Pool |
+| **Premium Model** | +100 RARE/mo | → Rare Pool |
+| **Skill Marketplace** | 10% fee | → Rare Pool |
 
-### Royalty Structure
+**ALL Revenue → Rare Pool (centralized distribution)**
+
+### Profit Sharing & Royalties (Viral Growth Engine)
 
 ```
+🏆 THE VIRAL LOOP:
+Create Bot → Bot Wins → Publish to Leaderboard
+     ↓
+Others See It → Click "Clone" → Pay 500 RARE
+     ↓
+Creator Earns 10% of Clone's Profits FOREVER
+     ↓
+If Clone Gets Cloned → Creator Earns 5% of Those Too!
+     ↓
+VIRAL GROWTH 🚀
+
 Bot Creator Earns:
-├── 10% of profits from direct copiers
-├── 5% of profits from sub-copiers (copiers of copiers)
-└── Paid in RARE tokens automatically
+├── 10% of profits from direct clones (Level 1)
+├── 5% of profits from sub-clones (Level 2)
+├── Paid in RARE tokens automatically
+└── ONLY if bot is PUBLIC (or Stealth)
+
+Cloner Pays:
+├── 500 RARE clone fee (one-time) → Rare Pool
+├── Subscription fee (50-250 RARE/mo) → Rare Pool
+└── Keeps 90% of profits (or 85% if sub-clone)
 
 Platform Earns:
-├── 10% of all royalties
-├── Subscription fees
-└── Marketplace fees
+├── All subscription fees → Rare Pool
+├── All clone fees → Rare Pool
+├── Privacy premiums → Rare Pool
+└── Premium model add-ons → Rare Pool
 ```
+
+### Example Earnings
+
+```
+Bot "MoonShot" by Alice:
+├── Own profit: $2,500/mo
+│
+├── 25 people clone it:
+│   └── Each makes $1,800/mo avg
+│   └── Alice earns: 25 × 10% × $1,800 = $4,500/mo
+│
+├── 12 of those get cloned again:
+│   └── Each makes $900/mo avg
+│   └── Alice earns: 12 × 5% × $900 = $540/mo
+│
+└── ALICE'S TOTAL: $7,540/mo ($90K/year)
+   From ONE winning bot! 💰
+```
+
+### Why This Goes Viral
+
+| Incentive | Result |
+|-----------|--------|
+| **Create winning bot** | More clones = passive income |
+| **Publish (not private)** | Only public bots earn royalties |
+| **Share success** | Friends clone = more royalties |
+| **Quality filter** | Only winners get cloned |
+| **Network effect** | More users = more cloners = higher earnings |
 
 ### Token Economics
 
 ```
 ┌─────────────────────────────────────────────────────────┐
 │                    RARE TOKEN FLOW                      │
+│           ALL REVENUE → RARE POOL                       │
 ├─────────────────────────────────────────────────────────┤
 │                                                         │
-│   User Wallet ──▶ RARE Payment ──▶ Bot Activation      │
-│        │                                    │          │
-│        │                                    ▼          │
-│        │         ┌─────────────────────────────────┐   │
-│        │         │      TREASURY (50%)             │   │
-│        │         │   - Development                 │   │
-│        │         │   - Infrastructure              │   │
-│        │         │   - Buyback & Burn              │   │
-│        │         └─────────────────────────────────┘   │
-│        │                                    │          │
-│        │                                    ▼          │
-│        │         ┌─────────────────────────────────┐   │
-│        │         │      REWARDS (30%)              │   │
-│        │         │   - Leaderboard prizes          │   │
-│        │         │   - Royalties to creators       │   │
-│        │         │   - Referral bonuses            │   │
-│        │         └─────────────────────────────────┘   │
-│        │                                    │          │
-│        │                                    ▼          │
-│        │         ┌─────────────────────────────────┐   │
-│        └────────▶│      STAKING (20%)              │   │
-│                  │   - Staker rewards              │   │
-│                  │   - LP incentives               │   │
-│                  └─────────────────────────────────┘   │
+│   User Wallet ──▶ RARE + ETH Payment                    │
+│        │                                               │
+│        ▼                                               │
+│        ┌─────────────────────────────────────────┐      │
+│        │           RARE POOL (100%)              │      │
+│        │                                         │      │
+│        │   All Revenue Sources:                  │      │
+│        │   - Subscriptions (50-250 RARE)         │      │
+│        │   - Clone fees (500 RARE)               │      │
+│        │   - Privacy premiums (+100-200 RARE)    │      │
+│        │   - Premium models (+100 RARE)          │      │
+│        │   - ETH fees (gas + platform)           │      │
+│        │   - Skill marketplace (10%)             │      │
+│        │                                         │      │
+│        │   Distribution:                         │      │
+│        │   - Development & Infrastructure        │      │
+│        │   - Royalties to creators               │      │
+│        │   - Staking rewards                     │      │
+│        │   - Airdrops to active users            │      │
+│        │   - Liquidity mining incentives         │      │
+│        └─────────────────────────────────────────┘      │
+│                                                         │
+│   NO BURNING - All tokens recycled via:                │
+│   - Staking rewards                                    │
+│   - Leaderboard prizes                                 │
+│   - Creator royalties                                  │
+│   - Community airdrops                                 │
 │                                                         │
 └─────────────────────────────────────────────────────────┘
 ```
@@ -216,14 +294,35 @@ Platform Earns:
 
 ## Bot Types & Features
 
-### Bot Tiers
+### Subscription Tiers
 
-| Type | Price | Features | Visibility |
-|------|-------|----------|------------|
-| **Paper Bot** | Free | Simulation only, no real trades | Private |
-| **Public Bot** | 500 RARE/mo | Real trading, earns royalties | Public |
-| **Private Bot** | 2,000 RARE/mo | Real trading, no royalties | Private |
-| **Copy Bot** | 500 RARE + royalty | Duplicates strategy | As original |
+| Tier | RARE/mo | ETH/mo | Bots | Features |
+|------|---------|--------|------|----------|
+| **Paper** | 0 | 0 | 1 | Simulation only |
+| **Basic** | 50 | 0.005 | 1 | Real trading, public |
+| **Pro** | 100 | 0.01 | 3 | Privacy option, priority |
+| **Whale** | 250 | 0.025 | ∞ | API access, unlimited |
+
+### Privacy Options (Per Bot)
+
+| Mode | Add-on | Royalties? | Leaderboard |
+|------|--------|------------|-------------|
+| **Public** | $0 | ✅ Earn 10% + 5% | Full visibility |
+| **Private** | +100 RARE/mo | ❌ None | Hidden |
+| **Stealth** | +200 RARE/mo | ✅ Earn 10% + 5% | Anonymous |
+
+### LLM Model Selection
+
+| Model | Use Case | Cost | Included? |
+|-------|----------|------|-----------|
+| **GLM-5** | Default (85% of bots) | $0.20/1M | ✅ Yes |
+| **Gemini 3 Flash** | High-frequency trading | $0.50/1M | ✅ Yes |
+| **Claude 4.5 Haiku** | Premium quality | $4.80/1M | ❌ +100 RARE/mo |
+
+**Model Auto-Routing:**
+- Standard bots → GLM-5
+- HFT bots (>50 trades/day) → Gemini 3 Flash
+- Premium bots → Claude 4.5 Haiku (user pays extra)
 
 ### Bot Capabilities
 
@@ -501,8 +600,9 @@ api:
 agent_framework:
   orchestration: "LangGraph"
   memory: "MemGPT pattern"
-  llm_primary: "Claude 3.5 Sonnet"
-  llm_fallback: "Gemini 3.1 Flash"
+  llm_default: "GLM-5 ($0.20/1M)"
+  llm_hft: "Gemini 3 Flash ($0.50/1M)"
+  llm_premium: "Claude 4.5 Haiku ($4.80/1M)"
 
 # Blockchain
 chains:
@@ -632,37 +732,74 @@ Every API Request:
 
 ---
 
-## Questions to Answer
+## Decisions Made ✅
 
 ### Pricing
-- [ ] Finalize bot creation fees
-- [ ] Royalty percentages (10/5 split?)
-- [ ] Skill marketplace fees
+- [x] Bot tiers: Paper (free), Basic (50 RARE + 0.005 ETH), Pro (100 RARE + 0.01 ETH), Whale (250 RARE + 0.025 ETH)
+- [x] Privacy options: Public (free), Private (+100 RARE/mo), Stealth (+200 RARE/mo)
+- [x] Clone fee: 500 RARE (one-time)
+- [x] Royalty structure: 10% Level 1, 5% Level 2 (forever)
+- [x] Skill marketplace: 10% fee
+- [x] Premium LLM: +100 RARE/mo for Claude 4.5 Haiku
+
+### LLM Models
+- [x] Default: GLM-5 ($0.20/1M - insanely cheap)
+- [x] HFT: Gemini 3 Flash ($0.50/1M - fast)
+- [x] Premium: Claude 4.5 Haiku ($4.80/1M - best quality)
+- [x] Skip on-chain AI (too expensive)
+
+### Revenue Flow
+- [x] ALL revenue → Rare Pool (centralized distribution)
+- [x] No burning - tokens recycled via rewards
+- [x] Direct payment to Rare Pool via smart contract
 
 ### Technical
-- [ ] Which DEXes to support first?
-- [ ] Multi-chain at launch or later?
-- [ ] How to handle failed trades?
+- [x] Primary chain: Base
+- [x] Multi-chain: Later (Ethereum, Arbitrum, Solana)
+- [x] DEX aggregator: 1inch API
+- [x] Agent framework: LangGraph + MemGPT
+
+## Questions Remaining
 
 ### Legal
 - [ ] Trading bot disclaimers
 - [ ] Jurisdiction restrictions
 - [ ] Insurance for losses?
 
+### Operational
+- [ ] Which DEXes to support first?
+- [ ] How to handle failed trades?
+- [ ] KYC requirements for large withdrawals?
+
 ---
 
 ## Next Steps
 
-1. **Finalize pricing** - Confirm fee structure
-2. **Design contracts** - BotRegistry, RoyaltyDistributor
-3. **Build AI engine** - LangGraph + MemGPT
-4. **Create Telegram bot** - Command interface
-5. **Build marketplace UI** - Rankings, copying
-6. **Set up infrastructure** - Supabase, Fly.io
+1. **Deploy smart contracts** - FeeSettings, SubscriptionManager, RoyaltyDistributor
+2. **Build API scaffold** - Hono + Bun + Supabase
+3. **Create Telegram bot** - Command interface
+4. **Implement agent loop** - LangGraph + MemGPT
+5. **Build marketplace UI** - Rankings, cloning, royalties
+6. **Set up infrastructure** - Fly.io, Supabase, Upstash
 
 ---
 
-*Master Vision Document v2.0*
+## Key Documents
+
+| Document | Purpose |
+|----------|---------|
+| `MASTER-VISION.md` | This doc - overall vision |
+| `PLATFORM-PLAN.md` | Detailed feature specs |
+| `IMPLEMENTATION.md` | Technical implementation |
+| `FEE-STRUCTURE.md` | Fee breakdown & flow |
+| `PROFIT-SHARING.md` | Royalty system details |
+| `OPERATING-COSTS.md` | Cost analysis & margins |
+| `SCALING-CONSTRAINTS.md` | Bottlenecks & mitigations |
+| `QUICK-START.md` | User guide |
+
+---
+
+*Master Vision Document v3.0*
 *Merged from ai-trading-platform-vision.md + PLATFORM-PLAN.md*
 *Created: 2026-02-24*
 *Updated: 2026-03-02*
