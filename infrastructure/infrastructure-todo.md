@@ -30,15 +30,21 @@
 | 8 | Create claim_periods table | Felix | ✅ Done |
 | 9 | Create settings table | Felix | ✅ Done |
 | 10 | Create bot_detections table | Felix | ✅ Done |
+| 11 | Add database triggers for stats | Felix | ✅ Done |
+| 12 | Create helper views (leaderboard, activity) | Felix | ✅ Done |
+| 13 | React hooks for data fetching | Felix | ✅ Done |
+| 14 | Real-time subscriptions | Felix | ✅ Done |
 
 ### API Routes
 | # | Task | Assignee | Status |
 |---|------|----------|--------|
 | 1 | Create /api/auth routes | Felix | ⏳ Pending |
-| 2 | Create /api/claims routes | Felix | ✅ Done | v3/fountain, v3/fee |
-| 3 | Create /api/stakes routes | Felix | ✅ Done | v3/staking/tvl |
-| 4 | Create /api/lottery routes | Felix | ✅ Done | v3/lottery/status |
+| 2 | Create /api/claims routes | Felix | ✅ Done | v3/fountain, v3/fee, v3/claims/log |
+| 3 | Create /api/stakes routes | Felix | ✅ Done | v3/staking/tvl, v3/stakes/log |
+| 4 | Create /api/lottery routes | Felix | ✅ Done | v3/lottery/status, v3/lottery/enter |
 | 5 | Create /api/verify-captcha | Felix | ✅ Done | v3/verify/turnstile |
+| 6 | Create /api/users/register | Felix | ✅ Done | v3/users/register |
+| 7 | Create /api/stats/global | Felix | ✅ Done | v3/stats/global |
 
 ---
 
@@ -100,11 +106,18 @@
 | API keys secured | 2026-02-24 |
 | Supabase migration SQL | 2026-03-02 |
 | Supabase client library | 2026-03-02 |
+| Supabase admin client | 2026-03-02 |
+| Supabase React hooks | 2026-03-02 |
+| Supabase real-time subscriptions | 2026-03-02 |
+| Database triggers for stats | 2026-03-02 |
+| Helper views (leaderboard, activity) | 2026-03-02 |
 | Base chain viem client | 2026-03-02 |
 | Chainlink price feeds | 2026-03-02 |
 | Turnstile verify endpoint | 2026-03-02 |
 | V3 API routes (fountain, fee, staking, lottery) | 2026-03-02 |
+| Write API routes (claims, stakes, lottery, users) | 2026-03-02 |
 | User stats API (Supabase-backed) | 2026-03-02 |
+| Global stats API | 2026-03-02 |
 | Turnstile widget component | 2026-03-02 |
 | Countdown timer component | 2026-03-02 |
 | Streak badge component | 2026-03-02 |
