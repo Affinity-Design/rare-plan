@@ -146,16 +146,24 @@ credits:
 ### Revenue Split
 
 ```
-Every $1 of Revenue:
-├── $0.50 → Treasury (ETH for operations)
-├── $0.30 → Rewards (RARE buyback + distribute)
-├── $0.15 → Development fund
-└── $0.05 → Staking rewards
+ALL Revenue → Rare Pool Treasury:
+├── 100% RARE subscriptions → Rare Pool
+├── 100% ETH subscriptions → Rare Pool  
+├── 100% Action fees → Rare Pool
+├── 100% Royalties → Rare Pool
+└── 100% Marketplace fees → Rare Pool
 
-RARE Payments:
-├── 50% → Burn (deflationary)
-├── 30% → Rewards pool
-└── 20% → Treasury
+Distribution (Managed by Rare Pool):
+├── Airdrops to holders
+├── Reward cycles
+├── Buyback & burn
+├── Development fund
+├── Operations
+└── Staking rewards
+
+Note: All profits collected centrally.
+      Distribution happens via Rare Pool cycles
+      as determined by governance/team.
 ```
 
 ---
@@ -251,7 +259,7 @@ contract FeeSettings {
 
 ### SubscriptionManager.sol
 
-```solidty
+```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
@@ -261,6 +269,7 @@ import "./FeeSettings.sol";
 contract SubscriptionManager {
     FeeSettings public feeSettings;
     IERC20 public rareToken;
+    address public rarePool;  // Central treasury for ALL revenue
     
     struct Subscription {
         string tier;
@@ -273,10 +282,12 @@ contract SubscriptionManager {
     
     event Subscribed(address user, string tier, uint256 endTime);
     event SubscriptionExpired(address user);
+    event RevenueCollected(address token, uint256 amount);
     
-    constructor(address _feeSettings, address _rareToken) {
+    constructor(address _feeSettings, address _rareToken, address _rarePool) {
         feeSettings = FeeSettings(_feeSettings);
         rareToken = IERC20(_rareToken);
+        rarePool = _rarePool;
     }
     
     function subscribe(string calldata tier) external payable {
@@ -285,15 +296,14 @@ contract SubscriptionManager {
         require(msg.value >= ethAmount, "Insufficient ETH");
         require(rareToken.transferFrom(msg.sender, address(this), rareAmount), "RARE transfer failed");
         
-        // Burn 50% of RARE
-        rareToken.burn(rareAmount / 2);
+        // Send ALL RARE to Rare Pool
+        rareToken.transfer(rarePool, rareAmount);
+        emit RevenueCollected(address(rareToken), rareAmount);
         
-        // Send 50% to treasury
-        rareToken.transfer(feeSettings.treasury(), rareAmount / 2);
-        
-        // Send ETH to treasury
-        (bool success, ) = feeSettings.treasury().call{value: msg.value}("");
+        // Send ALL ETH to Rare Pool
+        (bool success, ) = rarePool.call{value: msg.value}("");
         require(success, "ETH transfer failed");
+        emit RevenueCollected(address(0), msg.value);
         
         // Create subscription
         subscriptions[msg.sender] = Subscription({
@@ -318,8 +328,20 @@ contract SubscriptionManager {
         uint256 fee = feeSettings.actionFees(action);
         require(msg.value >= fee, "Insufficient fee");
         
-        (bool success, ) = feeSettings.treasury().call{value: msg.value}("");
+        // ALL fees go to Rare Pool
+        (bool success, ) = rarePool.call{value: msg.value}("");
         require(success, "Fee transfer failed");
+        emit RevenueCollected(address(0), msg.value);
+    }
+    
+    // Emergency functions
+    function updateRarePool(address _newPool) external onlyOwner {
+        rarePool = _newPool;
+    }
+    
+    modifier onlyOwner() {
+        require(msg.sender == feeSettings.owner(), "Not owner");
+        _;
     }
 }
 ```
@@ -350,15 +372,23 @@ contract SubscriptionManager {
 
 ```
 Subscription Revenue:
-├── RARE: 85,000 tokens ($85K at $1)
-├── ETH: 8.5 ETH ($25.5K at $3K)
-└── Total: ~$110K/month
+├── RARE: 85,000 tokens → Rare Pool
+├── ETH: 8.5 ETH → Rare Pool
+└── Total Value: ~$110K/month
 
 Action Fees:
-├── ETH: 21 ETH/month ($63K)
-└── Total: ~$63K/month
+├── ETH: 21 ETH/month → Rare Pool
+└── Total Value: ~$63K/month
 
-Combined Revenue: ~$173K/month
+Total Revenue to Rare Pool: ~$173K/month
+
+Distribution (via Rare Pool cycles):
+├── Airdrops to holders
+├── Reward distributions
+├── Buyback & burn events
+├── Development funding
+├── Operations
+└── As determined by governance
 ```
 
 ---
@@ -417,14 +447,16 @@ contract FeeGovernance {
 | Pro | 100 | 0.01 | $40-130 |
 | Whale | 250 | 0.025 | $100-325 |
 
-### Key Benefits
+### Revenue Flow
 
-1. **Affordable at all RARE prices**
-2. **ETH revenue for sustainability**
-3. **Configurable via contract**
-4. **50% RARE burn (deflationary)**
-5. **Small per-action fees**
-6. **Governance-controlled adjustments**
+```
+ALL Fees → Rare Pool → Distributed via cycles:
+├── Airdrops
+├── Rewards
+├── Buybacks
+├── Development
+└── Operations
+```
 
 ### Next Steps
 
