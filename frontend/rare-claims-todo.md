@@ -29,8 +29,8 @@
 |---|------|--------|-------|
 | 1 | Create Web3Provider.tsx | ✅ Done | Wagmi config for Base |
 | 2 | Update WalletConnect.tsx | ⏳ Pending | Use wagmi hooks |
-| 3 | Create WalletModal.tsx | ⏳ Pending | Connection UI |
-| 4 | Create NetworkSwitcher.tsx | ⏳ Pending | Base testnet/mainnet |
+| 3 | Create WalletModal.tsx | ✅ Done | Premium connection UI |
+| 4 | Create NetworkSwitcher.tsx | ✅ Done | Base testnet/mainnet |
 
 ---
 
@@ -48,10 +48,10 @@
 ### Component Polish
 | # | Task | Status | Notes |
 |---|------|--------|-------|
-| 1 | Button - Add loading spinner | ⏳ Pending |
-| 2 | Button - Add glow effect | ⏳ Pending |
-| 3 | Badge - Add shimmer animation | ⏳ Pending |
-| 4 | Card - Add hover animations | ⏳ Pending |
+| 1 | Button - Add loading spinner | ✅ Done | Animated spinner |
+| 2 | Button - Add glow effect | ✅ Done | Glow + pulse props |
+| 3 | Badge - Add shimmer animation | ✅ Done | Animated shimmer |
+| 4 | Card - Add hover animations | ✅ Done | Hover + interactive props |
 | 5 | Input - Improve focus ring | ⏳ Pending |
 
 ---
@@ -70,11 +70,11 @@
 ### Animations
 | # | Task | Status | Notes |
 |---|------|--------|-------|
-| 1 | Add gradientFlow keyframes | ⏳ Pending |
-| 2 | Add floatY animation | ⏳ Pending |
-| 3 | Add glowPulse animation | ⏳ Pending |
-| 4 | Add coinGlow animation | ⏳ Pending |
-| 5 | Add shimmer animation | ⏳ Pending |
+| 1 | Add gradientFlow keyframes | ✅ Done | gradient-shift animation |
+| 2 | Add floatY animation | ✅ Done | float-gentle animation |
+| 3 | Add glowPulse animation | ✅ Done | glow-pulse animation |
+| 4 | Add coinGlow animation | ✅ Done | Multiple glow effects |
+| 5 | Add shimmer animation | ✅ Done | text-shimmer, skeleton-wave |
 
 ### Feature Components
 | # | Task | Status | Notes |
@@ -135,6 +135,16 @@
 | Lottery page rewrite | 2026-03-02 |
 | Profile page create | 2026-03-02 |
 | Global CSS design system | 2026-03-02 |
+| WalletModal component | 2026-03-02 |
+| NetworkSwitcher component | 2026-03-02 |
+| Premium button animations | 2026-03-02 |
+| Card hover/glow effects | 2026-03-02 |
+| Badge shimmer animation | 2026-03-02 |
+| StatusBadge component | 2026-03-02 |
+| CounterBadge component | 2026-03-02 |
+| 15+ CSS animations | 2026-03-02 |
+| Glass morphism utilities | 2026-03-02 |
+| Glow effect utilities | 2026-03-02 |
 
 ---
 
