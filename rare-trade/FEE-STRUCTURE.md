@@ -105,9 +105,14 @@ clone_fee:
   flow: "→ Rare Pool"
   
 platform_fee:
-  rate: "1% of all winning trades"
+  rate: "1% of winning trades"
+  applies_to: "PUBLIC & STEALTH BOTS ONLY"
   flow: "→ Rare Pool"
-  note: "Platform cut on every profitable trade"
+  note: "Private bots pay privacy premium instead"
+  
+  exemption:
+    private_bots: "No platform fee (pay +100 RARE/mo)"
+    stealth_bots: "1% platform fee applies (anonymous)"
   
 royalties:
   # Creator earns from clones
@@ -132,19 +137,35 @@ royalties:
 ### Example Trade Flow
 
 ```yaml
-# Winning Trade Example
+# PUBLIC BOT (1% platform fee applies)
 trade:
   profit: $100
   
+  # Original bot (not cloned)
+  distribution:
+    user_keeps: $99        # 99%
+    platform_fee: $1       # 1% → Rare Pool
+    
+  # Cloned bot (Level 1)
   distribution:
     user_keeps: $89        # 89%
     platform_fee: $1       # 1% → Rare Pool
-    royalty_level_1: $10   # 10% → Creator (if cloned)
-    royalty_level_2: $0    # 5% → Original creator (if sub-clone)
+    royalty_level_1: $10   # 10% → Creator
     
-  # If NOT a cloned bot:
-  user_keeps: $99          # 99%
-  platform_fee: $1         # 1% → Rare Pool
+  # Sub-cloned bot (Level 2)
+  distribution:
+    user_keeps: $84        # 84%
+    platform_fee: $1       # 1% → Rare Pool
+    royalty_level_1: $10   # 10% → Direct parent
+    royalty_level_2: $5    # 5% → Original creator
+
+# PRIVATE BOT (No platform fee - pays +100 RARE/mo instead)
+trade:
+  profit: $100
+  
+  # Private bots don't earn royalties (hidden from leaderboard)
+  user_keeps: $100         # 100%
+  platform_fee: $0         # No fee - privacy premium paid
 ```
 
 ### Per-Action Fees (ETH)

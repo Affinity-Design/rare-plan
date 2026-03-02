@@ -75,7 +75,8 @@ If Clone Gets Cloned → Creator Earns 5% of Those Too!
 VIRAL GROWTH 🚀
 
 Platform Fee:
-├── 1% of ALL winning trades → Rare Pool
+├── 1% of ALL winning trades (PUBLIC BOTS ONLY)
+├── Private bots: No platform fee (pay +100 RARE/mo instead)
 └── Taken before royalty distribution
 
 Bot Creator Earns (on clones):
@@ -107,20 +108,25 @@ Platform Earns:
 ```
 Winning Trade: $100 profit
 
-ORIGINAL BOT (not cloned):
-├── User keeps: $99 (99%)
-└── Platform fee: $1 (1%) → Rare Pool
+PUBLIC BOT (1% platform fee):
+├── Original bot (not cloned):
+│   ├── User keeps: $99 (99%)
+│   └── Platform fee: $1 (1%) → Rare Pool
+│
+├── Cloned bot (Level 1):
+│   ├── User keeps: $89 (89%)
+│   ├── Platform fee: $1 (1%) → Rare Pool
+│   └── Royalty: $10 (10%) → Original creator
+│
+└── Sub-cloned bot (Level 2):
+    ├── User keeps: $84 (84%)
+    ├── Platform fee: $1 (1%) → Rare Pool
+    ├── Royalty L1: $10 (10%) → Direct parent
+    └── Royalty L2: $5 (5%) → Original creator
 
-CLONED BOT (Level 1):
-├── User keeps: $89 (89%)
-├── Platform fee: $1 (1%) → Rare Pool
-└── Royalty: $10 (10%) → Original creator
-
-SUB-CLONED BOT (Level 2):
-├── User keeps: $84 (84%)
-├── Platform fee: $1 (1%) → Rare Pool
-├── Royalty L1: $10 (10%) → Direct parent
-└── Royalty L2: $5 (5%) → Original creator
+PRIVATE BOT (No platform fee):
+└── User keeps: $100 (100%)
+    └── Pays +100 RARE/mo privacy premium instead
 ```
 
 ### Why This Goes Viral

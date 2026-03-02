@@ -24,11 +24,12 @@ VIRAL GROWTH 🚀
 
 ## Royalty Structure
 
-### Platform Fee (All Trades)
+### Platform Fee (Public Bots Only)
 
-| Action | Fee | Flow |
-|--------|-----|------|
-| **Winning trade** | **1% of profit** | → Rare Pool |
+| Action | Fee | Applies To |
+|--------|-----|------------|
+| **Winning trade** | **1% of profit** | Public & Stealth bots only |
+| **Private bots** | **0%** | Pay +100 RARE/mo instead |
 
 ### Clone Fees (One-Time)
 
@@ -49,7 +50,7 @@ VIRAL GROWTH 🚀
 ### Example Scenario
 
 ```
-🏆 Bot "Alpha" by User X
+🏆 Bot "Alpha" by User X (PUBLIC)
 ├── Makes $1,000 profit this month
 │   ├── User X keeps: $990 (99%)
 │   └── Platform fee: $10 (1%) → Rare Pool
@@ -70,7 +71,13 @@ VIRAL GROWTH 🚀
 └── 💵 User X Total Monthly Royalty: $575
     (on top of their own bot's $990 profit!)
     
-Rare Pool Earns:
+PRIVATE BOT EXAMPLE:
+├── Makes $1,000 profit
+├── User keeps: $1,000 (100%)
+├── Platform fee: $0 (exempt)
+└── Pays: +100 RARE/mo privacy premium instead
+    
+Rare Pool Earns (from PUBLIC bots):
 ├── Platform fee (User X): $10
 ├── Platform fee (10 clones): 10 × $5 = $50
 ├── Platform fee (5 sub-clones): 5 × $3 = $15
@@ -358,9 +365,12 @@ Top Creators Earning:
 
 | Bot Type | Platform | Royalties | User Keeps |
 |----------|----------|-----------|------------|
-| Original bot | 1% | 0% | **99%** |
-| Cloned bot (L1) | 1% | 10% | **89%** |
-| Sub-cloned bot (L2) | 1% | 15% | **84%** |
+| **Private bot** | 0% | 0% | **100%** ⭐ |
+| **Original public** | 1% | 0% | **99%** |
+| **Cloned public (L1)** | 1% | 10% | **89%** |
+| **Sub-cloned public (L2)** | 1% | 15% | **84%** |
+
+**Private bots**: No platform fee, but pay +100 RARE/mo and earn no royalties
 
 ---
 
