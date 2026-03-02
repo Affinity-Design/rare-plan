@@ -9,55 +9,91 @@
 
 | Users | Revenue/mo | Costs/mo | Margin | Margin % |
 |-------|------------|----------|--------|----------|
-| 10 | $1,500 | $200 | $1,300 | 87% |
-| 100 | $15,000 | $800 | $14,200 | 95% |
-| 1,000 | $150,000 | $5,500 | $144,500 | 96% |
-| 10,000 | $1,500,000 | $35,000 | $1,465,000 | 98% |
+| 10 | $840 | $21 | $819 | 98% |
+| 100 | $8,900 | $377 | $8,523 | 96% |
+| 1,000 | $141,500 | $1,788 | $139,712 | 99% |
+| 10,000 | $2,515,000 | $19,000 | $2,496,000 | 99% |
 
-**Key Insight**: High margins at all scales. LLM costs are the main variable.
+**Key Insight**: GLM-5 is 90x cheaper than Claude Sonnet. Exceptional margins at all scales.
+
+**Model Strategy**: GLM-5 default (included), premium models cost extra.
 
 ---
 
 ## LLM Model Selection
 
-### Model Comparison
+### Model Comparison (Cost per 1M tokens)
 
-| Model | Cost/Input | Cost/Output | Speed | Quality | Best For |
-|-------|------------|-------------|-------|---------|----------|
-| **Claude 3.5 Sonnet** | $3/1M tokens | $15/1M | Fast | Excellent | Primary agent |
-| **Claude 3 Haiku** | $0.25/1M | $1.25/1M | Very Fast | Good | High-frequency |
-| **Gemini 2.0 Flash** | $0.10/1M | $0.40/1M | Very Fast | Good | Backup/cheap |
-| **GPT-4o-mini** | $0.15/1M | $0.60/1M | Fast | Good | Alternative |
-| **DeepSeek V3** | $0.27/1M | $1.10/1M | Fast | Good | Cost saver |
-| **Local Llama 3.1** | Free | Free | Medium | Decent | On-chain option |
+| Model | Input | Output | Total* | Quality | Best For |
+|-------|-------|--------|--------|---------|----------|
+| **GLM-5** | $0.10 | $0.10 | **$0.20** | Good | ✅ Primary (default) |
+| **Gemini 2.0 Flash** | $0.10 | $0.40 | $0.50 | Good | Backup |
+| **GPT-4o-mini** | $0.15 | $0.60 | $0.75 | Good | Alternative |
+| **DeepSeek V3** | $0.27 | $1.10 | $1.37 | Good | Cost saver |
+| **Claude 3 Haiku** | $0.25 | $1.25 | $1.50 | Better | Premium tier |
+| **Claude 3.5 Sonnet** | $3.00 | $15.00 | **$18.00** | Best | ⚠️ Expensive! |
+| **Local Llama 3.1** | Free | Free | $0 | Decent | Enterprise |
+
+*Based on 60/40 input/output ratio
+
+### Cost Difference
+
+```
+GLM-5 vs Claude Sonnet:
+- GLM-5: $0.20 per 1M tokens
+- Claude Sonnet: $18.00 per 1M tokens
+- Difference: 90x more expensive!
+
+At 1,000 users (1.5B tokens/mo):
+- GLM-5: $300/mo
+- Claude Sonnet: $27,000/mo
+- Savings: $26,700/mo
+```
 
 ### Recommended Strategy
 
 ```yaml
-# Tiered Model Usage
-strategy_decisions:
-  high_frequency: "Claude 3 Haiku"      # Scalp/HFT bots
-  standard_trading: "Gemini 2.0 Flash"   # Swing/intraday
-  complex_analysis: "Claude 3.5 Sonnet"  # Deep reasoning
-  fallback: "GPT-4o-mini"                # If primary fails
+# Default (Included in subscription)
+default_model: "GLM-5"
+  - All basic/pro bots use GLM-5
+  - Included in standard pricing
+  - Good enough for 90% of use cases
 
-# Cost Optimization
-optimization:
-  - Cache frequent analysis patterns
-  - Batch decisions when possible
-  - Use smaller models for routine checks
-  - Only use Sonnet for critical decisions
+# Premium Add-on (User pays extra)
+premium_models:
+  claude_haiku:
+    add_on: +50 RARE/mo per bot
+    use_when: "Need better reasoning"
+    
+  claude_sonnet:
+    add_on: +200 RARE/mo per bot
+    use_when: "Critical decisions, complex analysis"
+
+# Model Selection
+model_tiers:
+  standard:
+    model: "GLM-5"
+    cost_to_user: "Included"
+    
+  better:
+    model: "Claude 3 Haiku"
+    cost_to_user: "+50 RARE/mo"
+    
+  best:
+    model: "Claude 3.5 Sonnet"
+    cost_to_user: "+200 RARE/mo"
 ```
 
 ### On-Chain Models?
 
 | Option | Pros | Cons | Verdict |
 |--------|------|------|---------|
-| **AI-as-a-Service** | Fast, cheap, powerful | Centralized | ✅ Primary |
-| **On-Chain (Olas/AutoGPT)** | Decentralized | Expensive, slow | ❌ Not viable |
-| **Local (Llama)** | Free, private | Hardware costs | ⚠️ Optional |
+| **GLM-5 (Zhipu AI)** | Cheap, fast, powerful | Centralized | ✅ Primary |
+| **Gemini Flash** | Cheap, fast | Google | ✅ Backup |
+| **On-Chain AI** | Decentralized | Expensive, slow | ❌ Not viable |
+| **Local Llama** | Free, private | Hardware costs | ⚠️ Enterprise only |
 
-**Recommendation**: Use cloud APIs (Claude/Gemini) for now. On-chain AI is too expensive and slow for trading. Consider local Llama for privacy-focused enterprise tier.
+**Recommendation**: Use GLM-5 as default. Users who want premium models (Claude) pay extra. This keeps base costs low while offering premium options.
 
 ---
 
@@ -134,15 +170,15 @@ costs_monthly:
   monitoring: $0            # Sentry free
   
   # LLM Costs (500 calls/day × 30 days)
-  # Using Gemini Flash (cheap)
+  # Using GLM-5 (cheap!)
   tokens_per_call: 2000
   total_tokens: 30M tokens
-  llm_cost: $12             # Gemini Flash rates
+  llm_cost: $6              # GLM-5 @ $0.20/1M
   
   # Total
   infrastructure: $15
-  llm: $12
-  total: $27/mo
+  llm: $6
+  total: $21/mo
 
 revenue_monthly:
   # Mix: 5 basic, 3 pro, 2 whale
@@ -156,9 +192,9 @@ revenue_monthly:
 
 margin:
   revenue: $840
-  costs: $27
-  profit: $813
-  margin_pct: 97%
+  costs: $21
+  profit: $819
+  margin_pct: 98%
 ```
 
 ### 100 Users (Early Growth)
@@ -178,31 +214,35 @@ costs_monthly:
   monitoring: $26           # Sentry Team
   
   # LLM Costs (5,000 calls/day × 30 days)
-  # Mix: 70% Gemini Flash, 30% Claude Haiku
-  gemini_tokens: 210M       # $84
-  claude_tokens: 90M        # $45
-  llm_cost: $129
+  # 95% GLM-5, 5% premium (user-paid)
+  glm5_tokens: 285M         # $57
+  premium_tokens: 15M       # User pays extra
+  llm_cost: $57
   
   # Total
   infrastructure: $320
-  llm: $129
-  total: $449/mo
+  llm: $57
+  total: $377/mo
 
 revenue_monthly:
   # Mix: 50 basic, 30 pro, 20 whale
   rare: (50×50 + 30×100 + 20×250) = 10,500 RARE
   eth: (50×0.005 + 30×0.01 + 20×0.025) = 1.05 ETH
   
+  # Premium model add-ons (20 users × 50 RARE)
+  premium_rare: 1,000 RARE
+  
   # At RARE $0.50, ETH $3,000
   rare_value: $5,250
   eth_value: $3,150
-  total: $8,400/mo
+  premium_value: $500
+  total: $8,900/mo
 
 margin:
-  revenue: $8,400
-  costs: $449
-  profit: $7,951
-  margin_pct: 95%
+  revenue: $8,900
+  costs: $377
+  profit: $8,523
+  margin_pct: 96%
 ```
 
 ### 1,000 Users (Growth)
@@ -222,32 +262,35 @@ costs_monthly:
   monitoring: $50           # Sentry + Grafana
   
   # LLM Costs (50,000 calls/day × 30 days)
-  # Mix: 80% Gemini Flash, 15% Claude Haiku, 5% Sonnet
-  gemini_tokens: 2.4B       # $960
-  claude_haiku: 450M        # $225
-  claude_sonnet: 150M       # $675
-  llm_cost: $1,860
+  # 90% GLM-5, 10% premium (user-paid)
+  glm5_tokens: 2.7B         # $540
+  premium_tokens: 300M      # User pays extra
+  llm_cost: $540
   
   # Total
   infrastructure: $1,248
-  llm: $1,860
-  total: $3,108/mo
+  llm: $540
+  total: $1,788/mo
 
 revenue_monthly:
   # Mix: 500 basic, 300 pro, 200 whale
   rare: (500×50 + 300×100 + 200×250) = 105,000 RARE
   eth: (500×0.005 + 300×0.01 + 200×0.025) = 10.5 ETH
   
+  # Premium model add-ons (100 users × 50 RARE)
+  premium_rare: 5,000 RARE
+  
   # At RARE $1.00, ETH $3,000
   rare_value: $105,000
   eth_value: $31,500
-  total: $136,500/mo
+  premium_value: $5,000
+  total: $141,500/mo
 
 margin:
-  revenue: $136,500
-  costs: $3,108
-  profit: $133,392
-  margin_pct: 98%
+  revenue: $141,500
+  costs: $1,788
+  profit: $139,712
+  margin_pct: 99%
 ```
 
 ### 10,000 Users (Scale)
@@ -270,36 +313,39 @@ costs_monthly:
   cdn: $100
   
   # LLM Costs (500,000 calls/day × 30 days)
-  # Bulk discounts apply
-  gemini_tokens: 24B        # $9,600
-  claude_haiku: 4.5B        # $2,000
-  claude_sonnet: 1.5B       # $6,000
-  llm_cost: $17,600
+  # 85% GLM-5, 15% premium (user-paid)
+  glm5_tokens: 25.5B        # $5,100
+  premium_tokens: 4.5B      # User pays extra
+  llm_cost: $5,100
   
   # DevOps & Support
   devops: $5,000            # Part-time SRE
   support_tools: $200
   
   # Total
-  infrastructure: $8,399
-  llm: $17,600
+  infrastructure: $8,699
+  llm: $5,100
   operations: $5,200
-  total: $31,199/mo
+  total: $18,999/mo
 
 revenue_monthly:
   # Mix: 5,000 basic, 3,000 pro, 2,000 whale
   rare: 1,050,000 RARE
   eth: 105 ETH
   
+  # Premium model add-ons (1,000 users × 50 RARE avg)
+  premium_rare: 50,000 RARE
+  
   # At RARE $2.00, ETH $3,000
   rare_value: $2,100,000
   eth_value: $315,000
-  total: $2,415,000/mo
+  premium_value: $100,000
+  total: $2,515,000/mo
 
 margin:
-  revenue: $2,415,000
-  costs: $31,199
-  profit: $2,383,801
+  revenue: $2,515,000
+  costs: $18,999
+  profit: $2,496,001
   margin_pct: 99%
 ```
 
@@ -307,7 +353,7 @@ margin:
 
 ## Detailed Cost Categories
 
-### 1. LLM Costs (Primary Variable)
+### 1. LLM Costs (Primary Variable - Now Much Cheaper!)
 
 ```yaml
 # Token Usage Per Agent Decision
@@ -327,16 +373,33 @@ decisions_per_strategy:
 # Average: 20 decisions/day per bot
 avg_decisions_per_bot: 20
 
-# LLM Cost Per Bot Per Month
-llm_cost_per_bot:
-  gemini_flash: 20 × 30 × 2000 × $0.00025 = $0.30
-  claude_haiku: 20 × 30 × 2000 × $0.000375 = $0.45
-  claude_sonnet: 20 × 30 × 2000 × $0.0045 = $5.40
+# LLM Cost Per Bot Per Month (GLM-5)
+llm_cost_per_bot_glm5:
+  tokens: 20 × 30 × 2000 = 1.2M tokens
+  cost: 1.2M × $0.20/1M = $0.24/mo per bot
+
+# Compare to Claude Sonnet
+llm_cost_per_bot_sonnet:
+  cost: 1.2M × $18/1M = $21.60/mo per bot
+  
+# Savings: 90x cheaper with GLM-5!
 
 # At Scale (1,000 bots)
-gemini_total: $300/mo
-haiku_total: $450/mo
-sonnet_total: $5,400/mo
+glm5_total: $240/mo
+claude_haiku_total: $1,800/mo
+claude_sonnet_total: $21,600/mo
+
+# Premium Model Add-on Revenue
+premium_addons:
+  # 10% of users upgrade to Claude Haiku
+  haiku_users: 100
+  addon_fee: 50 RARE/mo
+  revenue: 5,000 RARE/mo ($5,000)
+  
+  # 5% of users upgrade to Claude Sonnet
+  sonnet_users: 50
+  addon_fee: 200 RARE/mo
+  revenue: 10,000 RARE/mo ($10,000)
 ```
 
 ### 2. Infrastructure Costs
@@ -550,23 +613,29 @@ payback_months: 0.4 months
 
 ### LLM Strategy
 
-1. **Primary**: Gemini 2.0 Flash (cheapest, fast)
-2. **Secondary**: Claude 3 Haiku (better reasoning)
-3. **Complex**: Claude 3.5 Sonnet (critical decisions only)
-4. **Skip**: On-chain models (too expensive)
+1. **Primary**: GLM-5 (cheapest - $0.20/1M tokens)
+2. **Backup**: Gemini 2.0 Flash
+3. **Premium**: Claude (users pay extra +50-200 RARE/mo)
+4. **Skip**: On-chain AI (too expensive, slow)
 
-### Infrastructure
+### Premium Model Strategy
 
-1. **Start**: Fly.io + Supabase Free + Alchemy Free
-2. **Scale**: Upgrade as needed (auto-scale)
-3. **Optimize**: Caching, batching, smart routing
+```
+Default (Included):
+├── GLM-5 for all decisions
+└── No extra cost
 
-### Cost Management
+Premium Add-ons:
+├── Better Reasoning (+50 RARE/mo)
+│   └── Claude Haiku for complex decisions
+└── Best Quality (+200 RARE/mo)
+    └── Claude Sonnet for all decisions
 
-1. **Monitor**: Daily cost tracking
-2. **Alerts**: Notify at 80% budget
-3. **Optimize**: Weekly cost review
-4. **Scale**: Only when profitable
+User Choice:
+├── 90% will use default (GLM-5)
+├── 8% will pay for Haiku (+$50-100)
+└── 2% will pay for Sonnet (+$200-500)
+```
 
 ---
 
