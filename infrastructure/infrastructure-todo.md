@@ -131,6 +131,13 @@
 | Skeleton loading components | 2026-03-02 |
 | EmptyState components | 2026-03-02 |
 | ErrorBoundary component | 2026-03-02 |
+| Web3Provider (wagmi) | 2026-03-02 |
+| Home page rewrite | 2026-03-02 |
+| Claim page rewrite | 2026-03-02 |
+| Stake page rewrite | 2026-03-02 |
+| Lottery page rewrite | 2026-03-02 |
+| Profile page create | 2026-03-02 |
+| Global CSS design system | 2026-03-02 |
 | FaunaDB migration | ❌ N/A | Data lost - fresh start |
 
 ---
