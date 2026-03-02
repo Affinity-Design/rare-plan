@@ -24,6 +24,53 @@ VIRAL GROWTH 🚀
 
 ## Royalty Structure
 
+### Clone Marketplace (Market-Set Pricing)
+
+```yaml
+pricing:
+  creator_sets_price: true    # User controls price
+  minimum: 50 RARE            # Floor to prevent spam
+  maximum: No cap             # Market determines value
+
+revenue_split:
+  creator: 80%                # Upfront payment
+  platform: 20%               # → Rare Pool
+```
+
+### Clone Fee Examples
+
+| Bot Level | Performance | Price | Creator Earns | Platform Earns |
+|-----------|-------------|-------|---------------|----------------|
+| **New** | 30d, 52% win, $150 | 50 RARE | 40 RARE | 10 RARE |
+| **Proven** | 90d, 68% win, $2.4K | 500 RARE | 400 RARE | 100 RARE |
+| **Top** | 180d, 82% win, $18K | 2,000 RARE | 1,600 RARE | 400 RARE |
+| **Elite** | 365d, 91% win, $120K | 10,000 RARE | 8,000 RARE | 2,000 RARE |
+
+### Clone Limits (Stealth Perk Only)
+
+| Bot Type | Clone Limits | Notes |
+|----------|--------------|-------|
+| **Public** | Unlimited | Cannot restrict |
+| **Private** | Disabled | Hidden from marketplace |
+| **Stealth** | ✅ **Creator sets max** | 10, 50, 100, or unlimited |
+
+### Anti-Spoof Protection
+
+```yaml
+listing_requirements:
+  min_age: "≥30 days active"
+  min_trades: "≥20 executed trades"
+  min_profit: "≥$100 total profit"
+  win_rate: "≥40%"
+  verified: "All trades on-chain"
+  
+anti_gaming:
+  - No wash trading (banned)
+  - No self-cloning (blocked)
+  - No flash loan manipulation
+  - Real volume only
+```
+
 ### Platform Fee (Public Bots Only)
 
 | Action | Fee | Applies To |
@@ -31,14 +78,7 @@ VIRAL GROWTH 🚀
 | **Winning trade** | **1% of profit** | Public & Stealth bots only |
 | **Private bots** | **0%** | Pay +100 RARE/mo instead |
 
-### Clone Fees (One-Time)
-
-| Action | Fee | Who Gets It |
-|--------|-----|-------------|
-| Clone a bot | 500 RARE | 100% → Rare Pool |
-| Premium bot clone | 1,000 RARE | 100% → Rare Pool |
-
-### Profit Sharing (Recurring - FOREVER)
+### Ongoing Royalties (Forever)
 
 | Level | Relationship | Royalty | Example |
 |-------|--------------|---------|---------|
@@ -51,6 +91,14 @@ VIRAL GROWTH 🚀
 
 ```
 🏆 Bot "Alpha" by User X (PUBLIC)
+├── Track record: 90 days, 68% win, $2,400 profit
+├── Clone price: 500 RARE (Alice set this)
+│
+├── 💰 FIRST CLONE (User Y buys):
+│   ├── Y pays: 500 RARE
+│   ├── Alice earns: 400 RARE (80%)
+│   └── Platform earns: 100 RARE (20%) → Rare Pool
+│
 ├── Makes $1,000 profit this month
 │   ├── User X keeps: $990 (99%)
 │   └── Platform fee: $10 (1%) → Rare Pool
@@ -58,31 +106,38 @@ VIRAL GROWTH 🚀
 ├── 📊 Leaderboard: #1 ranked
 │
 ├── 👥 10 users clone it:
-│   ├── Each pays 500 RARE clone fee → Rare Pool
+│   ├── Each pays 500 RARE clone fee
+│   │   ├── Alice earns: 400 RARE × 10 = 4,000 RARE
+│   │   └── Platform earns: 100 RARE × 10 = 1,000 RARE
 │   ├── Each makes avg $500 profit
 │   ├── Each pays: 1% platform ($5) + 10% royalty ($50)
-│   └── User X earns: 10 × 10% × $500 = $500
+│   └── Alice earns: 10 × 10% × $500 = $500/month
 │
 ├── 🔗 5 of those clones get cloned again:
 │   ├── 5 sub-clones make avg $300 profit
 │   ├── Each pays: 1% platform ($3) + 10% L1 ($30) + 5% L2 ($15)
-│   └── User X earns: 5 × 5% × $300 = $75
+│   └── Alice earns: 5 × 5% × $300 = $75/month
 │
-└── 💵 User X Total Monthly Royalty: $575
-    (on top of their own bot's $990 profit!)
+└── 💵 Alice's Total Earnings:
+    ├── Clone fees (10 buyers): 4,000 RARE (one-time)
+    ├── Own bot profit: $990/month
+    ├── L1 royalties: $500/month
+    ├── L2 royalties: $75/month
+    └── Monthly recurring: $1,565 + 4,000 RARE upfront
     
 PRIVATE BOT EXAMPLE:
 ├── Makes $1,000 profit
 ├── User keeps: $1,000 (100%)
 ├── Platform fee: $0 (exempt)
+├── Clone fees: $0 (disabled)
 └── Pays: +100 RARE/mo privacy premium instead
     
 Rare Pool Earns (from PUBLIC bots):
-├── Platform fee (User X): $10
+├── Platform fee (Alice): $10
 ├── Platform fee (10 clones): 10 × $5 = $50
 ├── Platform fee (5 sub-clones): 5 × $3 = $15
-├── Clone fees: 15 × 500 RARE = 7,500 RARE
-└── Total: $75 + 7,500 RARE
+├── Clone fees: 11 × 100 RARE = 1,100 RARE
+└── Total: $75 + 1,100 RARE
 ```
 
 ---

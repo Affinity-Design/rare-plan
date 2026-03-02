@@ -23,6 +23,7 @@
 3. **Configurable**: Adjustable via governance/contract
 4. **Hybrid**: Mix RARE (utility) + ETH (revenue)
 5. **Viral**: Profit sharing drives growth
+6. **Anti-Spoof**: Track record required for marketplace
 
 ---
 
@@ -64,16 +65,19 @@ privacy_modes:
     add_on: 0
     royalties: "✅ Earn 10% + 5%"
     visibility: "Full leaderboard visibility"
+    clone_limits: "Unlimited clones"
     
   private:
     add_on: "+100 RARE/mo"
     royalties: "❌ No royalties"
     visibility: "Hidden from leaderboard"
+    cloning: "Disabled"
     
   stealth:
     add_on: "+200 RARE/mo"
     royalties: "✅ Earn 10% + 5%"
     visibility: "Anonymous on leaderboard"
+    clone_limits: "✅ SET MAX CLONES (exclusive perk)"
 ```
 
 ### LLM Model Tiers
@@ -97,13 +101,108 @@ llm_models:
     use_case: "Premium quality (5% of bots)"
 ```
 
-### Clone & Profit Sharing
+---
+
+## Clone Marketplace
+
+### Market-Set Pricing
 
 ```yaml
-clone_fee:
-  amount: 500 RARE (one-time)
-  flow: "→ Rare Pool"
+clone_marketplace:
+  # Creator sets their own clone price
+  creator_sets_price: true
+  minimum_price: 50 RARE      # Floor to prevent spam
+  maximum_price: No cap       # Market determines value
   
+  revenue_split:
+    creator: 80%              # Upfront payment
+    platform: 20%             # → Rare Pool
+    
+  example_pricing:
+    new_bot:
+      performance: "30 days, 52% win, $150 profit"
+      clone_price: 50 RARE
+      creator_earns: 40 RARE
+      platform_earns: 10 RARE
+      
+    proven_bot:
+      performance: "90 days, 68% win, $2,400 profit"
+      clone_price: 500 RARE
+      creator_earns: 400 RARE
+      platform_earns: 100 RARE
+      
+    top_bot:
+      performance: "180 days, 82% win, $18,000 profit"
+      clone_price: 2,000 RARE
+      creator_earns: 1,600 RARE
+      platform_earns: 400 RARE
+      
+    elite_bot:
+      performance: "365 days, 91% win, $120,000 profit"
+      clone_price: 10,000 RARE
+      creator_earns: 8,000 RARE
+      platform_earns: 2,000 RARE
+```
+
+### Clone Limits (Stealth Perk)
+
+```yaml
+# Only STEALTH tier can limit clones (exclusivity)
+clone_limits:
+  public_bots:
+    limit: "Unlimited"
+    note: "Cannot restrict clones"
+    
+  private_bots:
+    cloning: "Disabled"
+    note: "Hidden from marketplace"
+    
+  stealth_bots:
+    limit: "✅ Creator sets max clones"
+    options:
+      - unlimited (default)
+      - max 10 clones (ultra-exclusive)
+      - max 50 clones (exclusive)
+      - max 100 clones (semi-exclusive)
+    benefit: "Scarcity drives demand + price"
+    example:
+      elite_bot:
+        price: 5,000 RARE
+        max_clones: 10
+        status: "7/10 clones available"
+        urgency: "Limited availability"
+```
+
+### Anti-Spoof Protection
+
+```yaml
+verification:
+  # Bots MUST have track record to be clonable
+  listing_requirements:
+    age: "≥30 days active"
+    trades: "≥20 executed trades"
+    profit: "≥$100 total profit"
+    win_rate: "≥40%"
+    verified: "All trades on-chain verified"
+    
+  anti_gaming:
+    - No wash trading (detected & banned)
+    - No self-cloning (same wallet blocked)
+    - No flash loan manipulation
+    - Real volume only
+    
+  transparency:
+    - Full trade history visible
+    - Performance metrics verified
+    - Clone count displayed
+    - Creator reputation score
+```
+
+---
+
+## Platform Fee (Public Bots Only)
+
+```yaml
 platform_fee:
   rate: "1% of winning trades"
   applies_to: "PUBLIC & STEALTH BOTS ONLY"
@@ -113,9 +212,15 @@ platform_fee:
   exemption:
     private_bots: "No platform fee (pay +100 RARE/mo)"
     stealth_bots: "1% platform fee applies (anonymous)"
-  
+```
+
+---
+
+## Royalties (Ongoing Profit Sharing)
+
+```yaml
 royalties:
-  # Creator earns from clones
+  # Creator earns from clones (separate from clone fee)
   level_1:
     rate: "10% of clone's profits"
     duration: "Forever"
@@ -126,7 +231,7 @@ royalties:
     duration: "Forever"
     paid_in: "RARE"
     
-  # Requirements
+  # Requirements to earn
   requirements:
     - Bot must be public (or stealth)
     - Min 30 days active
@@ -134,7 +239,9 @@ royalties:
     - Win rate > 40%
 ```
 
-### Example Trade Flow
+---
+
+## Example Trade Flow
 
 ```yaml
 # PUBLIC BOT (1% platform fee applies)
@@ -168,7 +275,47 @@ trade:
   platform_fee: $0         # No fee - privacy premium paid
 ```
 
-### Per-Action Fees (ETH)
+---
+
+## Clone Marketplace Example
+
+```yaml
+# Complete flow example
+bot_creation:
+  creator: Alice
+  bot_name: "MoonShot Alpha"
+  strategy: "Swing trading"
+  
+track_record:
+  day_30: "Not eligible yet"
+  day_31: 
+    status: "✅ Eligible for marketplace"
+    trades: 24
+    profit: $156
+    win_rate: 62%
+    
+clone_pricing:
+  alice_sets_price: 500 RARE
+  
+  if_sold:
+    alice_earns: 400 RARE (80%)
+    platform_earns: 100 RARE (20% → Rare Pool)
+    
+clone_limits:
+  mode: "Stealth (+200 RARE/mo)"
+  max_clones: 50
+  current_clones: 12
+  remaining: 38
+  
+ongoing_royalties:
+  per_clone_profit: $1,000/mo
+  alice_earns: 12 clones × 10% × $1,000 = $1,200/mo
+  forever: "As long as clones are active"
+```
+
+---
+
+## Per-Action Fees (ETH)
 
 ```yaml
 action_fees:
@@ -177,7 +324,9 @@ action_fees:
   withdrawal: 0.0005 ETH         # ~$1.50 (security fee)
 ```
 
-### Skill Marketplace
+---
+
+## Skill Marketplace
 
 ```yaml
 skill_fees:
@@ -190,414 +339,58 @@ skill_fees:
     risk_tool: "75-150 RARE/month"
 ```
 
-### Option B: Dynamic RARE Pricing
+---
 
-```yaml
-# USD-pegged RARE fees (via oracle)
-pricing:
-  target_monthly_usd:
-    basic: $25
-    pro: $75
-    whale: $200
-    
-  rare_amount:
-    # Calculated at payment time
-    formula: "target_usd / rare_price_usd"
-    min_rare: 10      # Floor amount
-    max_rare: 500     # Cap amount
-    
-  example:
-    at_0.10_rare:
-      basic: 250 RARE ($25)
-      pro: 750 RARE ($75)
-    at_0.50_rare:
-      basic: 50 RARE ($25)
-      pro: 150 RARE ($75)
-    at_1.00_rare:
-      basic: 25 RARE ($25)
-      pro: 75 RARE ($75)
-    at_5.00_rare:
-      basic: 10 RARE ($50, floored)
-      pro: 40 RARE ($200)
-```
+## Revenue Summary
 
-### Option C: Credit System (Most Flexible)
+### All Revenue Streams → Rare Pool
 
-```yaml
-# Buy credits with RARE or ETH
-credits:
-  purchase:
-    100_credits: 50 RARE or 0.005 ETH
-    500_credits: 200 RARE or 0.02 ETH
-    2000_credits: 700 RARE or 0.07 ETH
-    
-  usage:
-    bot_monthly: 100 credits
-    trade_execution: 1 credit
-    copy_strategy: 50 credits
-    skill_purchase: 20 credits
-    
-  benefits:
-    - Pay with RARE OR ETH (user choice)
-    - Bulk discounts
-    - Never expires
-    - Transferable
-```
+| Source | Amount | Flow |
+|--------|--------|------|
+| **Subscriptions** | 50-250 RARE + ETH | → Rare Pool |
+| **Clone fees** | 50-10,000+ RARE (20%) | → Rare Pool |
+| **Platform fee** | 1% of winning trades | → Rare Pool |
+| **Privacy premium** | +100-200 RARE/mo | → Rare Pool |
+| **Premium LLM** | +100 RARE/mo | → Rare Pool |
+| **Skill marketplace** | 10% fee | → Rare Pool |
+
+### Creator Earnings
+
+| Source | Amount | Notes |
+|--------|--------|-------|
+| **Clone fee** | 80% upfront | One-time per clone |
+| **Level 1 royalty** | 10% of profits | Forever |
+| **Level 2 royalty** | 5% of profits | Forever |
 
 ---
 
-## Recommended: Hybrid Model (Option A Enhanced)
+## Key Benefits
 
-### Fee Schedule
+### Market-Set Pricing
+- ✅ Creators control their price
+- ✅ Best bots naturally charge more
+- ✅ Low barrier for new bots (50 RARE min)
+- ✅ No arbitrary platform pricing
 
-| Tier | RARE/mo | ETH/mo | USD Est. | Features |
-|------|---------|--------|----------|----------|
-| **Paper** | 0 | 0 | Free | Simulation only |
-| **Basic** | 50 | 0.005 | ~$20-65 | 1 bot, public |
-| **Pro** | 100 | 0.01 | ~$40-130 | 3 bots, private |
-| **Whale** | 250 | 0.025 | ~$100-325 | Unlimited, API |
+### Anti-Spoof Protection
+- ✅ 30-day track record required
+- ✅ All trades on-chain verified
+- ✅ Performance metrics transparent
+- ✅ No gaming the system
 
-### Per-Action Fees (ETH)
+### Stealth Perks
+- ✅ Set clone limits (exclusivity)
+- ✅ Scarcity drives demand
+- ✅ Higher prices for limited access
+- ✅ Premium positioning
 
-| Action | ETH Fee | USD Est. | Notes |
-|--------|---------|----------|-------|
-| Trade execute | 0.0001 | ~$0.30 | Covers gas + revenue |
-| Copy strategy | 0.002 | ~$6 | One-time copy fee |
-| Skill buy | 0.001 | ~$3 | Per skill purchase |
-| Withdraw | 0.0005 | ~$1.50 | Security fee |
-
-### Revenue Split
-
-```
-Direct Payments → Rare Pool (No intermediaries):
-│
-├── User pays subscription → Smart Contract → Rare Pool
-├── User pays action fee → Smart Contract → Rare Pool
-├── User pays royalties → Smart Contract → Rare Pool
-└── User buys skills → Smart Contract → Rare Pool
-
-ALL Revenue → Rare Pool Treasury:
-├── 100% RARE subscriptions → Rare Pool
-├── 100% ETH subscriptions → Rare Pool  
-├── 100% Action fees → Rare Pool
-├── 100% Royalties → Rare Pool
-└── 100% Marketplace fees → Rare Pool
-
-Distribution (Managed by Rare Pool):
-├── Airdrops to holders
-├── Reward cycles
-├── Buyback & burn
-├── Development fund
-├── Operations
-└── Staking rewards
-
-Note: All profits collected centrally.
-      Distribution happens via Rare Pool cycles
-      as determined by governance/team.
-```
+### Dual Income for Creators
+- ✅ 80% of clone fee (upfront)
+- ✅ 10% + 5% royalties (ongoing)
+- ✅ Earn forever from winning bots
 
 ---
 
-## Smart Contract Configuration
-
-### FeeSettings.sol
-
-```solidity
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
-
-contract FeeSettings {
-    address public owner;
-    address public treasury;
-    
-    // Subscription tiers
-    struct Tier {
-        uint256 rareAmount;      // RARE per month (wei)
-        uint256 ethAmount;       // ETH per month (wei)
-        uint256 maxBots;
-        bool canPrivate;
-        bool apiAccess;
-    }
-    
-    mapping(string => Tier) public tiers;
-    
-    // Per-action fees (in ETH)
-    mapping(bytes32 => uint256) public actionFees;
-    
-    // Events
-    event TierUpdated(string tierName, Tier tier);
-    event ActionFeeUpdated(bytes32 action, uint256 fee);
-    
-    constructor() {
-        owner = msg.sender;
-        treasury = msg.sender;
-        
-        // Initialize tiers
-        tiers["basic"] = Tier({
-            rareAmount: 50 * 1e18,    // 50 RARE
-            ethAmount: 0.005 ether,   // 0.005 ETH
-            maxBots: 1,
-            canPrivate: false,
-            apiAccess: false
-        });
-        
-        tiers["pro"] = Tier({
-            rareAmount: 100 * 1e18,
-            ethAmount: 0.01 ether,
-            maxBots: 3,
-            canPrivate: true,
-            apiAccess: false
-        });
-        
-        tiers["whale"] = Tier({
-            rareAmount: 250 * 1e18,
-            ethAmount: 0.025 ether,
-            maxBots: 100,
-            canPrivate: true,
-            apiAccess: true
-        });
-        
-        // Initialize action fees
-        actionFees["TRADE"] = 0.0001 ether;
-        actionFees["COPY"] = 0.002 ether;
-        actionFees["SKILL"] = 0.001 ether;
-        actionFees["WITHDRAW"] = 0.0005 ether;
-    }
-    
-    // Admin functions
-    function updateTier(string calldata name, Tier calldata tier) external onlyOwner {
-        tiers[name] = tier;
-        emit TierUpdated(name, tier);
-    }
-    
-    function updateActionFee(bytes32 action, uint256 fee) external onlyOwner {
-        actionFees[action] = fee;
-        emit ActionFeeUpdated(action, fee);
-    }
-    
-    function getTierCost(string calldata name) external view returns (uint256 rare, uint256 eth) {
-        Tier memory tier = tiers[name];
-        return (tier.rareAmount, tier.ethAmount);
-    }
-    
-    modifier onlyOwner() {
-        require(msg.sender == owner, "Not owner");
-        _;
-    }
-}
-```
-
-### SubscriptionManager.sol
-
-```solidity
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
-
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "./FeeSettings.sol";
-
-contract SubscriptionManager {
-    FeeSettings public feeSettings;
-    IERC20 public rareToken;
-    address public rarePool;  // Central treasury for ALL revenue
-    
-    struct Subscription {
-        string tier;
-        uint256 startTime;
-        uint256 endTime;
-        bool active;
-    }
-    
-    mapping(address => Subscription) public subscriptions;
-    
-    event Subscribed(address user, string tier, uint256 endTime);
-    event SubscriptionExpired(address user);
-    event RevenueCollected(address token, uint256 amount);
-    
-    constructor(address _feeSettings, address _rareToken, address _rarePool) {
-        feeSettings = FeeSettings(_feeSettings);
-        rareToken = IERC20(_rareToken);
-        rarePool = _rarePool;
-    }
-    
-    function subscribe(string calldata tier) external payable {
-        (uint256 rareAmount, uint256 ethAmount) = feeSettings.getTierCost(tier);
-        
-        require(msg.value >= ethAmount, "Insufficient ETH");
-        require(rareToken.transferFrom(msg.sender, address(this), rareAmount), "RARE transfer failed");
-        
-        // Send ALL RARE to Rare Pool
-        rareToken.transfer(rarePool, rareAmount);
-        emit RevenueCollected(address(rareToken), rareAmount);
-        
-        // Send ALL ETH to Rare Pool
-        (bool success, ) = rarePool.call{value: msg.value}("");
-        require(success, "ETH transfer failed");
-        emit RevenueCollected(address(0), msg.value);
-        
-        // Create subscription
-        subscriptions[msg.sender] = Subscription({
-            tier: tier,
-            startTime: block.timestamp,
-            endTime: block.timestamp + 30 days,
-            active: true
-        });
-        
-        emit Subscribed(msg.sender, tier, block.timestamp + 30 days);
-    }
-    
-    function checkSubscription(address user) external view returns (bool active, string memory tier) {
-        Subscription memory sub = subscriptions[user];
-        if (block.timestamp > sub.endTime) {
-            return (false, sub.tier);
-        }
-        return (true, sub.tier);
-    }
-    
-    function payActionFee(bytes32 action) external payable {
-        uint256 fee = feeSettings.actionFees(action);
-        require(msg.value >= fee, "Insufficient fee");
-        
-        // ALL fees go to Rare Pool
-        (bool success, ) = rarePool.call{value: msg.value}("");
-        require(success, "Fee transfer failed");
-        emit RevenueCollected(address(0), msg.value);
-    }
-    
-    // Emergency functions
-    function updateRarePool(address _newPool) external onlyOwner {
-        rarePool = _newPool;
-    }
-    
-    modifier onlyOwner() {
-        require(msg.sender == feeSettings.owner(), "Not owner");
-        _;
-    }
-}
-```
-
----
-
-## Revenue Projections
-
-### Scenario: 1,000 Active Users
-
-| Tier | Users | RARE/mo | ETH/mo | Revenue |
-|------|-------|---------|--------|---------|
-| Basic | 600 | 30,000 | 3 ETH | ~$30K + $9K |
-| Pro | 300 | 30,000 | 3 ETH | ~$30K + $9K |
-| Whale | 100 | 25,000 | 2.5 ETH | ~$25K + $7.5K |
-| **Total** | 1,000 | **85,000** | **8.5 ETH** | **~$110K/mo** |
-
-### Per-Action Revenue (1,000 users)
-
-| Action | Daily | ETH/trade | Daily ETH |
-|--------|-------|-----------|-----------|
-| Trades | 5,000 | 0.0001 | 0.5 ETH |
-| Copies | 50 | 0.002 | 0.1 ETH |
-| Skills | 100 | 0.001 | 0.1 ETH |
-| **Total** | - | - | **0.7 ETH/day** |
-
-### Monthly Summary (1,000 users)
-
-```
-Subscription Revenue:
-├── RARE: 85,000 tokens → Rare Pool
-├── ETH: 8.5 ETH → Rare Pool
-└── Total Value: ~$110K/month
-
-Action Fees:
-├── ETH: 21 ETH/month → Rare Pool
-└── Total Value: ~$63K/month
-
-Total Revenue to Rare Pool: ~$173K/month
-
-Distribution (via Rare Pool cycles):
-├── Airdrops to holders
-├── Reward distributions
-├── Buyback & burn events
-├── Development funding
-├── Operations
-└── As determined by governance
-```
-
----
-
-## Fee Adjustment Mechanism
-
-### Governance-Based Updates
-
-```solidity
-// Timelock for fee changes (security)
-contract FeeGovernance {
-    uint256 public constant DELAY = 2 days;
-    
-    struct Proposal {
-        string tierName;
-        FeeSettings.Tier newTier;
-        uint256 executeTime;
-        bool executed;
-    }
-    
-    mapping(uint256 => Proposal) public proposals;
-    
-    function proposeFeeChange(
-        string calldata tierName,
-        FeeSettings.Tier calldata newTier
-    ) external onlyGovernance returns (uint256 proposalId) {
-        proposalId = ++proposalCount;
-        proposals[proposalId] = Proposal({
-            tierName: tierName,
-            newTier: newTier,
-            executeTime: block.timestamp + DELAY,
-            executed: false
-        });
-    }
-    
-    function executeFeeChange(uint256 proposalId) external {
-        Proposal storage p = proposals[proposalId];
-        require(block.timestamp >= p.executeTime, "Too early");
-        require(!p.executed, "Already executed");
-        
-        feeSettings.updateTier(p.tierName, p.newTier);
-        p.executed = true;
-    }
-}
-```
-
----
-
-## Summary
-
-### Recommended Fees
-
-| Tier | RARE | ETH | USD Range |
-|------|------|-----|-----------|
-| Basic | 50 | 0.005 | $20-65 |
-| Pro | 100 | 0.01 | $40-130 |
-| Whale | 250 | 0.025 | $100-325 |
-
-### Revenue Flow
-
-```
-ALL Fees → Rare Pool → Distributed via cycles:
-├── Airdrops
-├── Rewards
-├── Buybacks
-├── Development
-└── Operations
-```
-
-### Next Steps
-
-1. [ ] Finalize fee amounts
-2. [ ] Deploy FeeSettings contract
-3. [ ] Deploy SubscriptionManager
-4. [ ] Add to frontend
-5. [ ] Test with paper trading
-
----
-
-*Fee Structure v1.0*
-*Created: 2026-03-02*
+*Fee Structure v3.0*
+*Updated: 2026-03-02*
 *Author: Felix*

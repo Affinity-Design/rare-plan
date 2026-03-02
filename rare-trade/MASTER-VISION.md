@@ -324,11 +324,34 @@ PRIVATE BOT (No platform fee):
 
 ### Privacy Options (Per Bot)
 
-| Mode | Add-on | Royalties? | Leaderboard |
-|------|--------|------------|-------------|
-| **Public** | $0 | ✅ Earn 10% + 5% | Full visibility |
-| **Private** | +100 RARE/mo | ❌ None | Hidden |
-| **Stealth** | +200 RARE/mo | ✅ Earn 10% + 5% | Anonymous |
+| Mode | Add-on | Royalties? | Clone Limits | Leaderboard |
+|------|--------|------------|--------------|-------------|
+| **Public** | $0 | ✅ Earn 10% + 5% | Unlimited | Full visibility |
+| **Private** | +100 RARE/mo | ❌ None | Disabled | Hidden |
+| **Stealth** | +200 RARE/mo | ✅ Earn 10% + 5% | ✅ **SET MAX** | Anonymous |
+
+**Stealth Perk**: Set clone limits (10, 50, 100, unlimited) for exclusivity
+
+### Clone Marketplace (Market-Set Pricing)
+
+```yaml
+pricing:
+  creator_sets_price: true
+  minimum: 50 RARE
+  maximum: No cap
+  
+revenue_split:
+  creator: 80% (upfront)
+  platform: 20% → Rare Pool
+
+anti_spoof:
+  requirements:
+    - ≥30 days active
+    - ≥20 trades
+    - ≥$100 profit
+    - ≥40% win rate
+    - On-chain verified
+```
 
 ### LLM Model Selection
 
