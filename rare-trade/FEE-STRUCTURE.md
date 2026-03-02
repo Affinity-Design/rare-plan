@@ -146,6 +146,13 @@ credits:
 ### Revenue Split
 
 ```
+Direct Payments → Rare Pool (No intermediaries):
+│
+├── User pays subscription → Smart Contract → Rare Pool
+├── User pays action fee → Smart Contract → Rare Pool
+├── User pays royalties → Smart Contract → Rare Pool
+└── User buys skills → Smart Contract → Rare Pool
+
 ALL Revenue → Rare Pool Treasury:
 ├── 100% RARE subscriptions → Rare Pool
 ├── 100% ETH subscriptions → Rare Pool  
