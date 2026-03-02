@@ -125,6 +125,12 @@
 | Error tracking utility | 2026-03-02 |
 | Frontend component audit | 2026-03-02 |
 | Frontend overhaul plan | 2026-03-02 |
+| Layout components (Header, Footer, Nav, Layout) | 2026-03-02 |
+| Modal component | 2026-03-02 |
+| Toast notification system | 2026-03-02 |
+| Skeleton loading components | 2026-03-02 |
+| EmptyState components | 2026-03-02 |
+| ErrorBoundary component | 2026-03-02 |
 | FaunaDB migration | ❌ N/A | Data lost - fresh start |
 
 ---
