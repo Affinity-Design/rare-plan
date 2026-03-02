@@ -27,8 +27,8 @@
 | Model | Input | Output | Total* | Speed | Quality | Best For |
 |-------|-------|--------|--------|-------|---------|----------|
 | **GLM-5** | $0.10 | $0.10 | **$0.20** | Fast | Good | ✅ Default (cheapest) |
-| **Gemini 2.0 Flash** | $0.10 | $0.40 | **$0.50** | Very Fast | Good | ✅ High-frequency bots |
-| **Claude 3.5 Haiku** | $0.80 | $4.00 | **$4.80** | Very Fast | Excellent | ✅ Premium tier |
+| **Gemini 3 Flash** | $0.10 | $0.40 | **$0.50** | Very Fast | Good | ✅ High-frequency bots |
+| **Claude 4.5 Haiku** | $0.80 | $4.00 | **$4.80** | Very Fast | Excellent | ✅ Premium tier |
 
 *Based on 60/40 input/output ratio (1500 input + 500 output per decision)
 
@@ -56,14 +56,14 @@ default_models:
     - Insanely cheap ($0.20/1M)
     - Included in all tiers
     
-  high_frequency: "Gemini 2.0 Flash"
+  high_frequency: "Gemini 3 Flash"
     - Very fast responses
     - Cheap ($0.50/1M)
     - For HFT/scalping bots
 
 # Premium Add-on (User pays extra)
 premium_models:
-  claude_haiku:
+  claude_4.5_haiku:
     add_on: +100 RARE/mo per bot
     use_when: "Need best reasoning quality"
     features:
@@ -402,8 +402,8 @@ tokens_per_bot_month: 1.2M
 # Model Costs Per Bot Per Month
 llm_cost_per_bot_month:
   glm_5: 1.2M × $0.20/1M = **$0.24**      # DEFAULT (insanely cheap!)
-  gemini_flash: 1.2M × $0.50/1M = **$0.60**  # HIGH-FREQ
-  claude_haiku: 1.2M × $4.80/1M = **$5.76**  # PREMIUM
+  gemini_3_flash: 1.2M × $0.50/1M = **$0.60**  # HIGH-FREQ
+  claude_4_5_haiku: 1.2M × $4.80/1M = **$5.76**  # PREMIUM
 
 # Cost Comparison
 cost_comparison:
