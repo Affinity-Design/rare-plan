@@ -27,7 +27,7 @@
 ### Web3 Integration
 | # | Task | Status | Notes |
 |---|------|--------|-------|
-| 1 | Create Web3Provider.tsx | ⏳ Pending | wagmi config wrapper |
+| 1 | Create Web3Provider.tsx | ✅ Done | Wagmi config for Base |
 | 2 | Update WalletConnect.tsx | ⏳ Pending | Use wagmi hooks |
 | 3 | Create WalletModal.tsx | ⏳ Pending | Connection UI |
 | 4 | Create NetworkSwitcher.tsx | ⏳ Pending | Base testnet/mainnet |
@@ -39,11 +39,11 @@
 ### Page Rewrites
 | # | Task | Status | Notes |
 |---|------|--------|-------|
-| 1 | Rewrite index.tsx (Home) | ⏳ Pending | Hero + Stats + CTA |
-| 2 | Rewrite register.js → claim.tsx | ⏳ Pending | Main claim flow |
-| 3 | Rewrite stake.js | ⏳ Pending | Staking interface |
-| 4 | Rewrite lotto.js → lottery.tsx | ⏳ Pending | Lottery interface |
-| 5 | Create profile.tsx | ⏳ Pending | User dashboard |
+| 1 | Rewrite index.tsx (Home) | ✅ Done | Hero + Stats + How it works + Features |
+| 2 | Rewrite register.js → claim.tsx | ✅ Done | Main claim flow with eligibility check |
+| 3 | Rewrite stake.js | ✅ Done | Staking with term selection |
+| 4 | Rewrite lotto.js → lottery.tsx | ✅ Done | Lottery with countdown |
+| 5 | Create profile.tsx | ✅ Done | User dashboard |
 
 ### Component Polish
 | # | Task | Status | Notes |
@@ -128,6 +128,13 @@
 | Skeleton component | 2026-03-02 |
 | EmptyState component | 2026-03-02 |
 | ErrorBoundary component | 2026-03-02 |
+| Web3Provider (wagmi) | 2026-03-02 |
+| Home page rewrite | 2026-03-02 |
+| Claim page rewrite | 2026-03-02 |
+| Stake page rewrite | 2026-03-02 |
+| Lottery page rewrite | 2026-03-02 |
+| Profile page create | 2026-03-02 |
+| Global CSS design system | 2026-03-02 |
 
 ---
 
