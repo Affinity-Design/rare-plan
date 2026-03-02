@@ -39,6 +39,7 @@ rare-plan/
 | [rare-fyi](https://github.com/Affinity-Design/rare-fyi) | Marketing website | 🟡 In Development |
 | [rare-coin](https://github.com/Affinity-Design/rare-coin) | dApp (claims, staking, lottery) | 🟡 In Development |
 | [rare-coin-projects](https://github.com/Affinity-Design/rare-coin) | Smart contracts | 🔴 Needs Audit |
+| [rarify-claim](https://github.com/Affinity-Design/rarify-claim) | **Testing playground** - All experiments, overhauls, and tests go here | 🧪 Testing |
 | rare-plan | This repo - Planning hub | 🟢 Active |
 
 ---
