@@ -80,7 +80,7 @@
 ### Monitoring & Logging
 | # | Task | Assignee | Status |
 |---|------|----------|--------|
-| 1 | Set up error tracking | Felix | ⏳ Pending |
+| 1 | Set up error tracking | Felix | ✅ Done | src/lib/error-tracking.ts |
 | 2 | Set up uptime monitoring | Felix | ⏳ Pending |
 | 3 | Configure log aggregation | Felix | ⏳ Pending |
 | 4 | Set up alerts | Felix | ⏳ Pending |
