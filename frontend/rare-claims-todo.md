@@ -9,20 +9,20 @@
 ### Layout Components
 | # | Task | Status | Notes |
 |---|------|--------|-------|
-| 1 | Create Header.tsx | ⏳ Pending | Logo + Nav + Wallet |
-| 2 | Create Footer.tsx | ⏳ Pending | Links + Social |
-| 3 | Create Navigation.tsx | ⏳ Pending | Claim/Stake/Lottery links |
-| 4 | Create Layout.tsx | ⏳ Pending | Wrap all pages |
-| 5 | Create MobileNav.tsx | ⏳ Pending | Hamburger menu |
+| 1 | Create Header.tsx | ✅ Done | Logo + Nav + Wallet + Mobile menu |
+| 2 | Create Footer.tsx | ✅ Done | Links + Social + Copyright |
+| 3 | Create Navigation.tsx | ✅ Done | Claim/Stake/Lottery links |
+| 4 | Create Layout.tsx | ✅ Done | Wrap all pages |
+| 5 | Create MobileNav.tsx | ✅ Done | Integrated in Header |
 
 ### Missing UI Components
 | # | Task | Status | Notes |
 |---|------|--------|-------|
-| 1 | Create Modal.tsx | ⏳ Pending | Reusable dialog |
-| 2 | Create Toast.tsx | ⏳ Pending | Notifications |
-| 3 | Create Skeleton.tsx | ⏳ Pending | Loading states |
-| 4 | Create EmptyState.tsx | ⏳ Pending | No data display |
-| 5 | Create ErrorBoundary.tsx | ⏳ Pending | Error handling |
+| 1 | Create Modal.tsx | ✅ Done | Backdrop + ESC close |
+| 2 | Create Toast.tsx | ✅ Done | Provider + hook + variants |
+| 3 | Create Skeleton.tsx | ✅ Done | Card, stats, table variants |
+| 4 | Create EmptyState.tsx | ✅ Done | NoClaims, NoStakes, etc. |
+| 5 | Create ErrorBoundary.tsx | ✅ Done | Retry + refresh options |
 
 ### Web3 Integration
 | # | Task | Status | Notes |
@@ -119,6 +119,15 @@
 | V3 API routes | 2026-03-02 |
 | Frontend audit | 2026-03-02 |
 | Overhaul plan doc | 2026-03-02 |
+| Header component | 2026-03-02 |
+| Footer component | 2026-03-02 |
+| Navigation component | 2026-03-02 |
+| Layout component | 2026-03-02 |
+| Modal component | 2026-03-02 |
+| Toast component | 2026-03-02 |
+| Skeleton component | 2026-03-02 |
+| EmptyState component | 2026-03-02 |
+| ErrorBoundary component | 2026-03-02 |
 
 ---
 
