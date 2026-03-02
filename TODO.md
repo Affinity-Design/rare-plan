@@ -20,10 +20,10 @@
 | Project | Status | Assignee | Priority |
 |---------|--------|----------|----------|
 | **rare-fyi (Marketing)** | 🟡 In Progress | Felix + Gemini | HIGH |
-| **rare-coin (dApp)** | 🟡 In Progress | Felix | HIGH |
+| **rarify-claim (Testing)** | 🟢 Active | Felix | HIGH |
 | **Contracts (Audit)** | 🟡 In Progress | GLM5 | CRITICAL |
 | **Marketing Plan** | ✅ Complete | Felix | MEDIUM |
-| **Supabase Setup** | 🟡 Configured | Felix | HIGH |
+| **Supabase Setup** | ✅ Complete | Felix | HIGH |
 
 ---
 
@@ -87,9 +87,9 @@ See: [marketing/marketing-todo.md](./marketing/marketing-todo.md)
 
 | Blocker | Project | Blocked By | Resolution |
 |---------|---------|------------|------------|
-| Visual issues on rare-fyi | rare-fyi | Unknown | Need to audit live site |
-| Missing staking contract | contracts | PaulySun | Waiting for file |
-| GLM5 rate limit | Backend | Plan limits | Work around or wait |
+| Turnstile keys missing | infrastructure | PaulySun | Create Turnstile account |
+| Contract addresses (testnet) | contracts | Deployment | Deploy V3 to Base testnet |
+| FaunaDB data lost | migration | FaunaDB | Fresh start - no migration needed |
 
 ---
 
@@ -97,6 +97,14 @@ See: [marketing/marketing-todo.md](./marketing/marketing-todo.md)
 
 | Task | Project | Completed | By |
 |------|---------|-----------|-----|
+| Supabase client library | infrastructure | 2026-03-02 | Felix |
+| Base chain viem client | infrastructure | 2026-03-02 | Felix |
+| Chainlink price feeds | infrastructure | 2026-03-02 | Felix |
+| Turnstile verification | infrastructure | 2026-03-02 | Felix |
+| V3 API routes | infrastructure | 2026-03-02 | Felix |
+| UI components (streak, tier, countdown) | frontend | 2026-03-02 | Felix |
+| Error tracking utility | infrastructure | 2026-03-02 | Felix |
+| rarify-claim TEST branch setup | testing | 2026-03-02 | Felix |
 | Pink/purple/cyan redesign | rare-fyi | 2026-02-24 | Felix |
 | Blog post #1 (Why Failed) | marketing | 2026-02-24 | Felix |
 | Blog post #2 (Bot Problem) | marketing | 2026-02-24 | Felix |
@@ -119,4 +127,4 @@ See: [marketing/marketing-todo.md](./marketing/marketing-todo.md)
 
 ---
 
-*Last Updated: 2026-02-24*
+*Last Updated: 2026-03-02*

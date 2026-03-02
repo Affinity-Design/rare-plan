@@ -61,13 +61,15 @@
 | 4 | Add widget to frontend | Felix | ⏳ Pending |
 | 5 | Add server verification | Felix | ✅ Done | API endpoint ready |
 
-### PhoneDB Migration
+### ~~PhoneDB Migration~~
 | # | Task | Assignee | Status |
 |---|------|----------|--------|
-| 1 | Export old data (if possible) | PaulySun | ⏳ Pending |
-| 2 | Map old schema to new | Felix | ⏳ Pending |
-| 3 | Migrate user data | Felix | ⏳ Pending |
-| 4 | Verify migration | Felix | ⏳ Pending |
+| ~~1~~ | ~~Export old data~~ | ~~PaulySun~~ | ❌ N/A | FaunaDB sunset - data lost |
+| ~~2~~ | ~~Map old schema~~ | ~~Felix~~ | ❌ N/A | Fresh start |
+| ~~3~~ | ~~Migrate user data~~ | ~~Felix~~ | ❌ N/A | Fresh start |
+| ~~4~~ | ~~Verify migration~~ | ~~Felix~~ | ❌ N/A | Fresh start |
+
+> **Note:** FaunaDB sunset and all data was lost. Starting fresh with Supabase.
 
 ### Monitoring & Logging
 | # | Task | Assignee | Status |
@@ -103,7 +105,13 @@
 | Turnstile verify endpoint | 2026-03-02 |
 | V3 API routes (fountain, fee, staking, lottery) | 2026-03-02 |
 | User stats API (Supabase-backed) | 2026-03-02 |
+| Turnstile widget component | 2026-03-02 |
+| Countdown timer component | 2026-03-02 |
+| Streak badge component | 2026-03-02 |
+| Holding tier component | 2026-03-02 |
+| Error tracking utility | 2026-03-02 |
+| FaunaDB migration | ❌ N/A | Data lost - fresh start |
 
 ---
 
-*Last Updated: 2026-02-24*
+*Last Updated: 2026-03-02*
