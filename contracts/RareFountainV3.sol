@@ -26,7 +26,8 @@ contract RareFountainV3 is ReentrancyGuard, Ownable, Pausable {
     IERC20 public rareToken;
     IBasenameRegistry public basenameRegistry;
     address public stakingContract;
-    address public lotteryContract;
+    // Wager contract receives unclaimed RARE
+    address public wagerContract;
     AggregatorV3Interface internal ethUsdPriceFeed;
 
     uint256 public constant SECONDS_PER_DAY = 86400;
@@ -92,14 +93,14 @@ contract RareFountainV3 is ReentrancyGuard, Ownable, Pausable {
     constructor(
         address _rareToken,
         address _stakingContract,
-        address _lotteryContract,
+        address _wagerContract,
         address _basenameRegistry,
         address _ethUsdPriceFeed,
         address _initialOwner
     ) Ownable(_initialOwner) {
         rareToken = IERC20(_rareToken);
         stakingContract = _stakingContract;
-        lotteryContract = _lotteryContract;
+        wagerContract = _wagerContract;
         basenameRegistry = IBasenameRegistry(_basenameRegistry);
         ethUsdPriceFeed = AggregatorV3Interface(_ethUsdPriceFeed);
         lastFlipTimestamp = block.timestamp;
@@ -219,9 +220,9 @@ contract RareFountainV3 is ReentrancyGuard, Ownable, Pausable {
         uint256 requiredFee = getClaimFeeInEth();
         require(msg.value >= requiredFee, "Insufficient fee");
         
-        // Send fee to lottery contract
+        // Send fee to wager contract
         if (msg.value > 0) {
-            (bool success, ) = payable(lotteryContract).call{value: msg.value}("");
+            (bool success, ) = payable(wagerContract).call{value: msg.value}("");
             require(success, "Fee transfer failed");
         }
 
@@ -287,7 +288,7 @@ contract RareFountainV3 is ReentrancyGuard, Ownable, Pausable {
     }
 
     /**
-     * @notice Flip the active pool - unclaimed tokens go to lottery
+     * @notice Flip the active pool - unclaimed tokens go to wager
      * @dev Autonomous: Can be called by anyone every 24 hours
      */
     function flipPool() external whenNotPaused nonReentrant {
@@ -303,9 +304,9 @@ contract RareFountainV3 is ReentrancyGuard, Ownable, Pausable {
             unclaimed = poolBalance * (regIncB > 0 ? (regIncB - _countClaimedB()) : regIncB) / (regIncB > 0 ? regIncB : 1);
         }
 
-        // Send unclaimed to lottery
-        if (unclaimed > 0 && address(lotteryContract) != address(0)) {
-            rareToken.transfer(lotteryContract, unclaimed);
+        // Send unclaimed to wager
+        if (unclaimed > 0 && address(wagerContract) != address(0)) {
+            rareToken.transfer(wagerContract, unclaimed);
         }
 
         regPeriod = !regPeriod;
@@ -355,8 +356,8 @@ contract RareFountainV3 is ReentrancyGuard, Ownable, Pausable {
         basenameRegistry = IBasenameRegistry(_registry);
     }
 
-    function setLotteryContract(address _lottery) external onlyOwner {
-        lotteryContract = _lottery;
+    function setWagerContract(address _wager) external onlyOwner {
+        wagerContract = _wager;
     }
 
     function setPoolBalance(uint256 _amount) external onlyOwner {

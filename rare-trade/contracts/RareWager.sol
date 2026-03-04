@@ -30,7 +30,6 @@ contract RareWager is Ownable, ReentrancyGuard, Pausable {
     uint256 public constant MAX_WAGER = 10000 * 1e18; // 10,000 RARE maximum
     uint256 public constant BET_DURATION = 5 minutes; // 5 minute prediction window
     uint256 public constant WIN_FEE_PERCENT = 5; // 5% fee on winnings
-    uint256 public constant COOLDOWN = 10 minutes; // Cooldown between bets
 
     // ============================================
     // STATE VARIABLES
@@ -54,7 +53,6 @@ contract RareWager is Ownable, ReentrancyGuard, Pausable {
 
     // Bet tracking
     mapping(bytes32 => Bet) public bets;
-    mapping(address => uint256) public lastBetTime;
     mapping(address => uint256) public activeBets; // Number of active bets per user
 
     // Statistics
@@ -126,10 +124,6 @@ contract RareWager is Ownable, ReentrancyGuard, Pausable {
     }
 
     modifier cooldownPassed() {
-        require(
-            block.timestamp >= lastBetTime[msg.sender] + COOLDOWN,
-            "Cooldown not passed"
-        );
         _;
     }
 
